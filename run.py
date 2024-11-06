@@ -28,3 +28,20 @@ def initialize_progress_file():
                 json.dump([], file)
             print("Progress file initialized as an empty list due to invalid data.")
 
+def load_flashcards(filename="flashcards.json"):
+    """
+    Loads flashcards from the specified JSON file. If the file is missing, 
+    starts with an empty flashcard list. If data is corrupted, initializes
+    with an empty list and displays an error message.
+    """
+    global flashcards
+    try:
+        with open(filename, "r") as file:
+            flashcards = json.load(file)
+        print("Quiz Cards loaded successfully.")
+    except FileNotFoundError:
+        print("No saved Quiz Cards found. Starting with an empty list.")
+    except json.JSONDecodeError:
+        print_error("Corrupted file. Starting with an empty list.")
+        flashcards = []
+
