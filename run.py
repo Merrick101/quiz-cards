@@ -382,3 +382,33 @@ def run_quiz(category_flashcards, num_questions, category_name="All Categories")
     else:
         print("No questions were attempted; progress will not be saved.")
 
+def save_progress(category, correct_count, total_questions):
+    """
+    Saves quiz results to the progress file with category, score, total questions, 
+    and success rate. If the file is missing or corrupted, initializes it as an 
+    empty list. Appends the new entry and saves it in JSON format.
+    """
+    # Calculate success rate
+    success_rate = (correct_count / total_questions) * 100 if total_questions > 0 else 0
+    # Create progress entry
+    progress_entry = {
+        "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "category": category,
+        "score": correct_count,
+        "total_questions": total_questions,
+        "success_rate": round(success_rate, 2)
+    }
+    try:
+        # Load existing progress data or create new list
+        with open(progress_file, "r") as file:
+            progress_data = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        progress_data = []
+    
+    # Append new entry and save back to file
+    progress_data.append(progress_entry)
+    with open(progress_file, "w") as file:
+        json.dump(progress_data, file, indent=4)
+
+    print("Progress saved successfully!")
+
