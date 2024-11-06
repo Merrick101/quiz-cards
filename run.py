@@ -348,3 +348,37 @@ def start_quiz():
                 print("Returning to Main Menu...")
                 return
 
+def run_quiz(category_flashcards, num_questions, category_name="All Categories"):
+    """
+    Runs the quiz for the selected category with a specified number of questions. 
+    Randomly selects flashcards to quiz the user, either term or definition, and 
+    tracks correct answers. If at least one question was attempted, saves progress.
+    """
+    correct_count = 0
+    total_questions = 0
+
+    while total_questions < num_questions:
+        flashcard = random.choice(category_flashcards)
+        if random.choice([True, False]):
+            user_answer = input(f"What is the definition of '{flashcard['term']}'? (or type 'exit' to quit): ").strip()
+            correct_answer = flashcard['definition']
+        else:
+            user_answer = input(f"What term matches the definition '{flashcard['definition']}'? (or type 'exit' to quit): ").strip()
+            correct_answer = flashcard['term']
+
+        if user_answer.lower() == "exit":
+            break
+        elif user_answer.lower() == correct_answer.lower():
+            print("Correct!")
+            correct_count += 1
+        else:
+            print(f"Incorrect. The correct answer is: {correct_answer}")
+        total_questions += 1
+
+    # Only save progress if at least one question was attempted
+    if total_questions > 0:
+        print(f"Quiz complete! You scored {correct_count} out of {total_questions}.")
+        save_progress(category_name, correct_count, total_questions)
+    else:
+        print("No questions were attempted; progress will not be saved.")
+
