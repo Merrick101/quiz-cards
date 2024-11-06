@@ -183,3 +183,28 @@ def edit_flashcard():
     else:
         print("Changes not saved.")
 
+def delete_flashcard():
+    """
+    Allows users to delete flashcards.
+    """
+    if not flashcards:
+        print("No Quiz Cards to delete.")
+        print("Returning to Main Menu...")
+        return
+    
+    view_flashcards()  # Display current flashcards with indexes
+    
+    # Get a valid flashcard index from the user
+    index = get_valid_index("Enter the number of the Quiz Card to delete: ", len(flashcards) - 1)
+    flashcard = flashcards[index]
+    
+    print(f"\nSelected Quiz Card:\nTerm: {flashcard['term']}\nDefinition: {flashcard['definition']}\nCategory: {flashcard['category'] or 'Uncategorized'}")
+    
+    # Ask for confirmation before deletion
+    if confirm_action("Are you sure you want to delete this flashcard? (yes/no): "):
+        del flashcards[index]
+        print("Quiz Card deleted successfully.")
+        save_flashcards()  # Auto-save enabled
+    else:
+        print("Quiz Card not deleted.")
+
