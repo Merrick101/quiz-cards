@@ -56,3 +56,24 @@ def save_flashcards(filename="flashcards.json"):
     except IOError:
         print_error("\nUnable to save Quiz Cards.")
 
+def display_welcome_message():
+    """
+    Displays a welcome message and provides an overview of the program's 
+    features, guiding the user through Quiz Cards functionality.
+    """
+    print("*****************************************")
+    print("        Welcome to Quiz Cards!")
+    print("*****************************************")
+    print()
+    print("The ultimate flashcard quiz tool to boost your knowledge!")
+    print()
+    print("With Quiz Cards, you can:")
+    print()
+    print("1. Add your own Quiz Cards for personalized learning.")
+    print("2. View all Quiz Cards to review and reinforce your knowledge.")
+    print("3. Sort Quiz Cards into categories to help keep your study deck organized.")
+    print("4. Delete Quiz Cards you no longer need to keep your study deck fresh.")
+    print("5. Test yourself with our Quiz mode to see how much you’ve learned.")
+    print()
+    print("Let’s get started and make learning fun and interactive!")
+
