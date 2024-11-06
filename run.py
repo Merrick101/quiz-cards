@@ -412,3 +412,49 @@ def save_progress(category, correct_count, total_questions):
 
     print("Progress saved successfully!")
 
+# --- Progress Management Function ---
+
+def view_progress():
+    """
+    Displays all quiz progress entries with date, category, score, and success rate. 
+    Provides a summary, including total quizzes, average success rate, highest score, 
+    and a conditional lowest score. Allows the user to clear all progress entries 
+    with confirmation.
+    """
+    try:
+        with open(progress_file, "r") as file:
+            progress_data = json.load(file)
+        
+        if not progress_data:
+            print("No quiz progress available.")
+            print("Returning to Main Menu...")
+            return
+
+        print("\nQuiz Progress History:")
+        total_score = 0
+        total_questions = 0
+        highest_score = 0
+        lowest_score = None
+        num_quizzes = len(progress_data)
+        all_zero_scores = True  # Flag to track if all scores are zero
+
+        for entry in progress_data:
+            print(f"Date: {entry['date']}")
+            print(f"Category: {entry['category']}")
+            print(f"Score: {entry['score']} / {entry['total_questions']}")
+            print(f"Success Rate: {entry['success_rate']}%")
+            print("-" * 30)
+
+            # Accumulate statistics
+            total_score += entry['score']
+            total_questions += entry['total_questions']
+            if entry['score'] > 0:
+                all_zero_scores = False  # At least one non-zero score found
+            if entry['score'] > highest_score:
+                highest_score = entry['score']
+            if lowest_score is None or (entry['score'] < lowest_score and entry['score'] > 0):
+                lowest_score = entry['score']
+
+        # Calculate average success rate
+        average_success_rate = (total_score / total_questions) * 100 if total_questions > 0 else 0
+        
