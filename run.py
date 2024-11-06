@@ -488,3 +488,30 @@ def view_progress():
     except json.JSONDecodeError:
         print_error("Progress data file is corrupted.")
 
+# --- Main Control Functions ---
+
+def main_menu():
+    """
+    Navigation menu.
+    """ 
+    while True:
+        print("\nQuiz Cards Main Menu\n")
+        print("1. Quiz Card Management")
+        print("2. Quiz Mode")
+        print("3. Progress Tracking")
+        print("4. Exit")
+
+        choice = input("\nPlease select an option (1-4): ")
+
+        if choice == "1":
+            flashcard_management_menu()
+        elif choice == "2":
+            start_quiz()
+        elif choice == "3":
+            view_progress()
+        elif choice == "4":
+            save_flashcards()
+            break
+        else:
+            print_error("Invalid option. Please try again.")
+
