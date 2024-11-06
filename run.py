@@ -45,3 +45,14 @@ def load_flashcards(filename="flashcards.json"):
         print_error("Corrupted file. Starting with an empty list.")
         flashcards = []
 
+def save_flashcards(filename="flashcards.json"):
+    """
+    Saves all flashcards.
+    """
+    try:
+        with open(filename, "w") as file:
+            json.dump(flashcards, file, indent=4)
+        print("\nQuiz Cards saved successfully.")
+    except IOError:
+        print_error("\nUnable to save Quiz Cards.")
+
