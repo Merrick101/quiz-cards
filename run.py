@@ -111,55 +111,14 @@ def add_flashcard():
 
 def view_flashcards():
     """
-    View flashcards by category or view all flashcards. 
+    View flashcards by category or view all flashcards.
     Provides an option to view other flashcards or return to the main menu.
     """
-    if not flashcards:
-        print("No Quiz Cards available.")
-        print("Returning to Main Menu...")
-        return # Exit if there are no flashcards to view
-
     while True:
-        # Display available categories and the option to view all or return to main menu
-        unique_categories = sorted(set(fc["category"] if fc["category"] else "Uncategorized" for fc in flashcards))
-        print("\nAvailable Categories:")
-        for idx, category in enumerate(unique_categories, start=1):
-            print(f"{idx}. {category}")
-        print(f"{len(unique_categories) + 1}. View All Quiz Cards")
-        print(f"{len(unique_categories) + 2}. Return to Quiz Card Management")
-
-        # Prompt user to select a category or view all flashcards
-        try:
-            selection = get_valid_integer("Select a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 2)
-            if selection == len(unique_categories) + 2:
-                # User chose to return to the previous menu
-                print("Returning to Quiz Card Management...")
-                return
-            elif 1 <= selection <= len(unique_categories):
-                # Selected a specific category
-                selected_category = unique_categories[selection - 1]
-                category_flashcards = [fc for fc in flashcards if (fc["category"] if fc["category"] else "Uncategorized") == selected_category]
-                print(f"\nQuiz Cards in category '{selected_category}':")
-            else:
-                # View all flashcards
-                category_flashcards = flashcards
-                print("\nAll Quiz Cards:")
-
-            # Display the selected flashcards
-            if not category_flashcards:
-                print("No Quiz Cards found in this category.")
-            else:
-                for index, flashcard in enumerate(category_flashcards, start=1):
-                    category = flashcard['category'] if flashcard['category'] else "Uncategorized"
-                    print(f"{index}. Term: {flashcard['term']} | Definition: {flashcard['definition']} | Category: {category}")
-                    
-            # Prompt user to view other flashcards or return to main menu
-            continue_choice = input("\nWould you like to view other flashcards? (yes to continue, no to return to previous menu): ").strip().lower()
-            if continue_choice != "yes":
-                break
-
-        except ValueError:
-            print_error("Please enter a valid number.")
+        display_flashcards()  # Use the display helper function
+        continue_choice = input("\nWould you like to view other flashcards? (yes to continue, no to return to previous menu): ").strip().lower()
+        if continue_choice != "yes":
+            break
 
     print("Returning to Quiz Card Management...")
 
@@ -174,20 +133,20 @@ def edit_flashcard():
         print("No Quiz Cards available to edit.")
         print("Returning to Main Menu...")
         return
-    
-    view_flashcards()  # Display current flashcards with indexes
-    
+
+    display_flashcards()  # Display flashcards without navigation options
+
     # Get a valid flashcard index from the user
     index = get_valid_index("Enter the number of the Quiz Card you want to edit: ", len(flashcards) - 1)
     flashcard = flashcards[index]
-    
+
     print(f"\nSelected Quiz Card: Term = '{flashcard['term']}', Definition = '{flashcard['definition']}', Category = '{flashcard['category'] or 'Uncategorized'}'")
-    
+
     # Ask for confirmation before allowing edits
     if not confirm_action("Do you want to edit this Quiz Card? (yes/no): "):
         print("Edit canceled.")
         return
-    
+
     new_term = input("Enter the new term (or press Enter to keep the current term): ").strip() or flashcard['term']
     new_definition = input("Enter the new definition (or press Enter to keep the current definition): ").strip() or flashcard['definition']
     new_category = input("Enter the new category (or press Enter to keep the current category): ").strip().title() or flashcard['category']
