@@ -272,3 +272,79 @@ def get_valid_integer(prompt, min_value, max_value):
         except ValueError:
             print_error("Invalid input. Please enter a valid number.")
 
+# --- Quiz Functions ---
+
+def start_quiz():
+    """
+    Initiates a quiz session with a selected category or all categories. Prompts
+    the user to select a category and the number of questions. After the quiz, 
+    offers options to retry the same quiz, start a new quiz, or return to the 
+    main menu.
+    """
+    if not flashcards:
+        print("No Quiz Cards available for quiz. Please add Quiz Cards first.")
+        print("Returning to Main Menu...")
+        return
+
+    while True:  # Main quiz loop for selecting categories and starting quizzes
+        print("\nQuiz Mode")
+
+        # Display available categories
+        unique_categories = sorted(set(fc["category"] or "Uncategorized" for fc in flashcards))
+        print("Available Categories:")
+        for idx, category in enumerate(unique_categories, start=1):
+            print(f"{idx}. {category}")
+        print(f"{len(unique_categories) + 1}. All Categories")
+        
+        # Prompt user for category selection
+        try:
+            selection = get_valid_integer("Select a category by number (or choose 'All Categories'): ", 1, len(unique_categories) + 1)
+            if 1 <= selection <= len(unique_categories):
+                category = unique_categories[selection - 1]
+                
+                # Filter flashcards by the selected category
+                category_flashcards = [fc for fc in flashcards if (fc["category"] or "Uncategorized") == category]
+                
+                # Check if there are any flashcards in the selected category
+                if not category_flashcards:
+                    print(f"No Quiz Cards found for category '{category}'. Please add flashcards to this category.")
+                    return
+                
+                print(f"Starting quiz on category '{category}'...")
+            elif selection == len(unique_categories) + 1:
+                category_flashcards = flashcards  # All categories selected
+                print("Starting quiz on all categories...")
+            else:
+                print_error("Invalid selection. Please enter a number corresponding to the category list.")
+                continue
+        except ValueError:
+            print_error("Please enter a valid number.")
+            continue
+        
+        # Prompt for the number of questions if flashcards are available in the chosen category
+        max_questions = len(category_flashcards)
+        num_questions = get_valid_integer(f"How many questions would you like? (1-{max_questions}): ", 1, max_questions)
+        
+        # Run the quiz
+        run_quiz(category_flashcards, num_questions, category_name=unique_categories[selection - 1] if selection <= len(unique_categories) else "All Categories")
+
+        # Post-quiz options
+        while True:
+            print("\nQuiz Complete! What would you like to do next?")
+            print("1. Try the same quiz again")
+            print("2. Start a new quiz")
+            print("3. Return to Main Menu")
+            
+            next_action = get_valid_integer("Choose an option (1-3): ", 1, 3)
+
+            if next_action == 1:
+                # Retry the same quiz with the same category and question count
+                run_quiz(category_flashcards, num_questions, category_name=unique_categories[selection - 1] if selection <= len(unique_categories) else "All Categories")
+            elif next_action == 2:
+                # Restart the main quiz loop to select a new category
+                break
+            elif next_action == 3:
+                # Exit to the main menu
+                print("Returning to Main Menu...")
+                return
+
