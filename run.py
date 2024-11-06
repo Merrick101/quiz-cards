@@ -215,3 +215,10 @@ def list_categories():
     categories = set(fc["category"] for fc in flashcards if fc["category"])
     print("Available categories:", ", ".join(categories))
 
+def choose_category():
+    """
+    Displays available categories and prompts the user to select one.
+    """
+    list_categories()
+    return input("Enter a category (or press Enter to skip): ").strip().title()
+
