@@ -222,3 +222,20 @@ def choose_category():
     list_categories()
     return input("Enter a category (or press Enter to skip): ").strip().title()
 
+# --- Helper & Validation Functions ---
+
+def confirm_action(message="Are you sure you want to proceed? (yes/no): "):
+    """
+    Displays a prompt for the user to confirm an action with 'yes' or 'no'.
+    Repeats until valid input is received. Returns True for 'yes' and False 
+    for 'no' responses, used for potentially irreversible actions.
+    """
+    while True:
+        choice = input(message).strip().lower()
+        if choice == "yes":
+            return True
+        elif choice == "no":
+            return False
+        else:
+            print_error("Please enter 'yes' or 'no'.")
+
