@@ -457,4 +457,15 @@ def view_progress():
 
         # Calculate average success rate
         average_success_rate = (total_score / total_questions) * 100 if total_questions > 0 else 0
+
+                # Display summary statistics
+        print("\nProgress Summary:")
+        print(f"Total Quizzes Taken: {num_quizzes}")
+        print(f"Average Success Rate: {average_success_rate:.2f}%")
+        print(f"Highest Score Achieved: {highest_score}")
         
+        # Conditionally display lowest score or a message if all scores are zero
+        if all_zero_scores:
+            print("Lowest Score Achieved: No completed quizzes with a non-zero score.")
+        else:
+            print(f"Lowest Score Achieved: {lowest_score if lowest_score is not None else 0}")
