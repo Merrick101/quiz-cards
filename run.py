@@ -208,3 +208,10 @@ def delete_flashcard():
     else:
         print("Quiz Card not deleted.")
 
+def list_categories():
+    """
+    Allows users to view all categories.
+    """
+    categories = set(fc["category"] for fc in flashcards if fc["category"])
+    print("Available categories:", ", ".join(categories))
+
