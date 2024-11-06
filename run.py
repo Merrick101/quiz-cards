@@ -242,3 +242,18 @@ def confirm_action(message="Are you sure you want to proceed? (yes/no): "):
 def print_error(message):
     print(f"\n**ERROR**: {message}")
 
+def get_valid_index(prompt, max_index):
+    """
+    Validates and returns a zero-based index input within the specified range.
+    Ensures user input falls between 1 and max_index + 1 (inclusive).
+    """
+    while True:
+        try:
+            index = int(input(prompt)) - 1  # Adjusting to zero-based index
+            if 0 <= index <= max_index:
+                return index
+            else:
+                print_error(f"Please enter a number between 1 and {max_index + 1}.")
+        except ValueError:
+            print_error("Invalid input. Please enter a valid number.")
+
