@@ -543,3 +543,16 @@ def flashcard_management_menu():
         else:
             print_error("Invalid option. Please try again.")
 
+def main():
+    """
+    Run program functions, main_menu will handle options and submenus.
+    """
+    display_welcome_message()
+    load_flashcards()
+    initialize_progress_file()
+    main_menu()
+    print("\nThank you for using Quiz Cards! Goodbye!") # Exit message
+
+# --- Run the Program ---
+
+main()
