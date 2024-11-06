@@ -469,3 +469,22 @@ def view_progress():
             print("Lowest Score Achieved: No completed quizzes with a non-zero score.")
         else:
             print(f"Lowest Score Achieved: {lowest_score if lowest_score is not None else 0}")
+        
+        # Offer option to clear progress
+        clear_progress = input("\nWould you like to clear all quiz progress? (yes/no): ").strip().lower()
+        if clear_progress == "yes":
+            confirm_clear = input("Are you sure you want to delete all progress? This action cannot be undone. (yes/no): ").strip().lower()
+            if confirm_clear == "yes":
+                with open(progress_file, "w") as file:
+                    json.dump([], file)
+                print("All quiz progress has been cleared.")
+            else:
+                print("Clear progress canceled.")
+        else:
+            print("Returning to Main Menu...")
+
+    except FileNotFoundError:
+        print("No quiz progress available.")
+    except json.JSONDecodeError:
+        print_error("Progress data file is corrupted.")
+
