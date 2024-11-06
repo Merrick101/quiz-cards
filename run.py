@@ -1,3 +1,7 @@
-# Your code goes here.
-# You can delete these comments, but do not change the name of this file
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
+import json
+import os
+import random
+from datetime import datetime
+
+flashcards = []
+progress_file = "progress.json" # JSON file for storing user progress
