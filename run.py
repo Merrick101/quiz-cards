@@ -239,3 +239,6 @@ def confirm_action(message="Are you sure you want to proceed? (yes/no): "):
         else:
             print_error("Please enter 'yes' or 'no'.")
 
+def print_error(message):
+    print(f"\n**ERROR**: {message}")
+
