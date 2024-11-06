@@ -109,37 +109,54 @@ def add_flashcard():
     else:
         print_error("Both term and definition are required.")
 
-# --- Flashcard Management Functions ---
+def view_flashcards():
+    """
+    Displays flashcards organized by category, with options to view specific 
+    categories or all flashcards. Allows returning to the main menu directly 
+    from the selection. Filters flashcards by chosen category.
+    """
+    if not flashcards:
+        print("No Quiz Cards available.")
+        print("Returning to Main Menu...")
+        return # Exit if there are no flashcards to view
 
-def add_flashcard():
-    """
-    Prompts the user to input a term, definition, and optional category to 
-    create a new flashcard. Validates that both term and definition are provided.
-    Assigns 'Uncategorized' if no category is given. Auto-saves flashcards upon 
-    successful addition.
-    """
-    print("\nAdd a New Quiz Card")
-    print("You’ll be asked to enter a term/question followed by its definition/answer, and an optional category.")
-    print("Example: Term = Python, Definition = A high-level programming language, Category = Programming")
-    
-    term = input("Enter the term/question: ").strip()
-    definition = input("Enter the definition/answer: ").strip()
-    category = input("Enter the category (or press Enter to skip): ").strip().title()
-    
-    if term and definition:  # Validation for term and definition only followed by confirmation prompt
-        print(f"\nYou entered:\nTerm: {term}\nDefinition: {definition}\nCategory: {category or 'Uncategorized'}")
-        if confirm_action("Do you want to add this Quiz Card? (yes/no): "):
-            flashcards.append({
-                "term": term,
-                "definition": definition,
-                "category": category if category else "Uncategorized"
-            })
-            print("Quiz Card added successfully!")
-            save_flashcards()  # Auto-save enabled
+    # Standardize categories to ensure "Uncategorized" is used for empty categories
+    unique_categories = sorted(set(fc["category"] if fc["category"] else "Uncategorized" for fc in flashcards))
+    print("\nAvailable Categories:")
+    for idx, category in enumerate(unique_categories, start=1):
+        print(f"{idx}. {category}")
+    print(f"{len(unique_categories) + 1}. View All Quiz Cards")
+    print(f"{len(unique_categories) + 2}. Return to Main Menu")
+
+    # Prompt user to select a category or view all flashcards
+    try:
+        selection = get_valid_integer("Select a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 2)
+        if selection == len(unique_categories) + 2:
+            # User chose to return to the main menu
+            print("Returning to Main Menu...")
+            return
+        elif 1 <= selection <= len(unique_categories):
+            # Selected a specific category
+            selected_category = unique_categories[selection - 1]
+            category_flashcards = [fc for fc in flashcards if (fc["category"] if fc["category"] else "Uncategorized") == selected_category]
+            print(f"\nQuiz Cards in category '{selected_category}':")
         else:
-            print("Quiz Card not added.")
-    else:
-        print_error("Both term and definition are required.")
+            # View all flashcards
+            category_flashcards = flashcards
+            print("\nAll Quiz Cards:")
+        
+        # Display the selected flashcards
+        if not category_flashcards:
+            print("No Quiz Cards found in this category.")
+        else:
+            for index, flashcard in enumerate(category_flashcards, start=1):
+                category = flashcard['category'] if flashcard['category'] else "Uncategorized"
+                print(f"{index}. Term: {flashcard['term']} | Definition: {flashcard['definition']} | Category: {category}")
+                
+    except ValueError:
+        print_error("Please enter a valid number.")
+    
+    print("Returning to Quiz Card Management...")
 
 def edit_flashcard():
     """
