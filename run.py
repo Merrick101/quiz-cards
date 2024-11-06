@@ -294,6 +294,42 @@ def get_valid_integer(prompt, min_value, max_value):
         except ValueError:
             print_error("Invalid input. Please enter a valid number.")
 
+def display_flashcards():
+    """
+    Displays flashcards by category or all flashcards, without prompting for navigation.
+    Used as a helper function in other parts of the program.
+    """
+    if not flashcards:
+        print("No Quiz Cards available.")
+        return
+
+    unique_categories = sorted(set(fc["category"] if fc["category"] else "Uncategorized" for fc in flashcards))
+    print("\nAvailable Categories:")
+    for idx, category in enumerate(unique_categories, start=1):
+        print(f"{idx}. {category}")
+    print(f"{len(unique_categories) + 1}. View All Quiz Cards")
+
+    # Prompt user to select a category or view all flashcards
+    try:
+        selection = get_valid_integer("Select a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 1)
+        if 1 <= selection <= len(unique_categories):
+            selected_category = unique_categories[selection - 1]
+            category_flashcards = [fc for fc in flashcards if (fc["category"] if fc["category"] else "Uncategorized") == selected_category]
+            print(f"\nQuiz Cards in category '{selected_category}':")
+        else:
+            category_flashcards = flashcards
+            print("\nAll Quiz Cards:")
+
+        if not category_flashcards:
+            print("No Quiz Cards found in this category.")
+        else:
+            for index, flashcard in enumerate(category_flashcards, start=1):
+                category = flashcard['category'] if flashcard['category'] else "Uncategorized"
+                print(f"{index}. Term: {flashcard['term']} | Definition: {flashcard['definition']} | Category: {category}")
+                
+    except ValueError:
+        print_error("Please enter a valid number.")
+
 # --- Quiz Functions ---
 
 def start_quiz():
