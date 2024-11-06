@@ -141,3 +141,45 @@ def add_flashcard():
     else:
         print_error("Both term and definition are required.")
 
+def edit_flashcard():
+    """
+    Edits an existing flashcard. Displays all flashcards with index numbers,
+    prompts for a flashcard to edit using a validated index, and asks for 
+    confirmation before making changes. Allows the user to update term, 
+    definition, or category. Changes are saved upon confirmation.
+    """
+    if not flashcards:
+        print("No Quiz Cards available to edit.")
+        print("Returning to Main Menu...")
+        return
+    
+    view_flashcards()  # Display current flashcards with indexes
+    
+    # Get a valid flashcard index from the user
+    index = get_valid_index("Enter the number of the Quiz Card you want to edit: ", len(flashcards) - 1)
+    flashcard = flashcards[index]
+    
+    print(f"\nSelected Quiz Card: Term = '{flashcard['term']}', Definition = '{flashcard['definition']}', Category = '{flashcard['category'] or 'Uncategorized'}'")
+    
+    # Ask for confirmation before allowing edits
+    if not confirm_action("Do you want to edit this Quiz Card? (yes/no): "):
+        print("Edit canceled.")
+        return
+    
+    new_term = input("Enter the new term (or press Enter to keep the current term): ").strip() or flashcard['term']
+    new_definition = input("Enter the new definition (or press Enter to keep the current definition): ").strip() or flashcard['definition']
+    new_category = input("Enter the new category (or press Enter to keep the current category): ").strip().title() or flashcard['category']
+
+    # Display changes and ask for final confirmation
+    print(f"\nUpdated Quiz Card:\nTerm: {new_term}\nDefinition: {new_definition}\nCategory: {new_category or 'Uncategorized'}")
+    if confirm_action("Do you want to save these changes? (yes/no): "):
+        flashcard.update({
+            "term": new_term,
+            "definition": new_definition,
+            "category": new_category if new_category else "Uncategorized"
+        })
+        print("Quiz Card updated successfully!")
+        save_flashcards()  # Auto-save enabled
+    else:
+        print("Changes not saved.")
+
