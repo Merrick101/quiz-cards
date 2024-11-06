@@ -38,7 +38,7 @@ def load_flashcards(filename="flashcards.json"):
     try:
         with open(filename, "r") as file:
             flashcards = json.load(file)
-        print("Quiz Cards loaded successfully.")
+        print("\nQuiz Cards loaded successfully.")
     except FileNotFoundError:
         print("No saved Quiz Cards found. Starting with an empty list.")
     except json.JSONDecodeError:
@@ -87,16 +87,16 @@ def add_flashcard():
     successful addition.
     """
     print("\nAdd a New Quiz Card")
-    print("You’ll be asked to enter a term/question followed by its definition/answer, and an optional category.")
+    print("\nYou’ll be asked to enter a term/question followed by its definition/answer, and an optional category.")
     print("Example: Term = Python, Definition = A high-level programming language, Category = Programming")
     
-    term = input("Enter the term/question: ").strip()
+    term = input("\nEnter the term/question: ").strip()
     definition = input("Enter the definition/answer: ").strip()
     category = input("Enter the category (or press Enter to skip): ").strip().title()
     
     if term and definition:  # Validation for term and definition only followed by confirmation prompt
         print(f"\nYou entered:\nTerm: {term}\nDefinition: {definition}\nCategory: {category or 'Uncategorized'}")
-        if confirm_action("Do you want to add this Quiz Card? (yes/no): "):
+        if confirm_action("\nDo you want to add this Quiz Card? (yes/no): "):
             flashcards.append({
                 "term": term,
                 "definition": definition,
@@ -111,51 +111,56 @@ def add_flashcard():
 
 def view_flashcards():
     """
-    Displays flashcards organized by category, with options to view specific 
-    categories or all flashcards. Allows returning to the main menu directly 
-    from the selection. Filters flashcards by chosen category.
+    View flashcards by category or view all flashcards. 
+    Provides an option to view other flashcards or return to the main menu.
     """
     if not flashcards:
         print("No Quiz Cards available.")
         print("Returning to Main Menu...")
         return # Exit if there are no flashcards to view
 
-    # Standardize categories to ensure "Uncategorized" is used for empty categories
-    unique_categories = sorted(set(fc["category"] if fc["category"] else "Uncategorized" for fc in flashcards))
-    print("\nAvailable Categories:")
-    for idx, category in enumerate(unique_categories, start=1):
-        print(f"{idx}. {category}")
-    print(f"{len(unique_categories) + 1}. View All Quiz Cards")
-    print(f"{len(unique_categories) + 2}. Return to Main Menu")
+    while True:
+        # Display available categories and the option to view all or return to main menu
+        unique_categories = sorted(set(fc["category"] if fc["category"] else "Uncategorized" for fc in flashcards))
+        print("\nAvailable Categories:")
+        for idx, category in enumerate(unique_categories, start=1):
+            print(f"{idx}. {category}")
+        print(f"{len(unique_categories) + 1}. View All Quiz Cards")
+        print(f"{len(unique_categories) + 2}. Return to Quiz Card Management")
 
-    # Prompt user to select a category or view all flashcards
-    try:
-        selection = get_valid_integer("Select a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 2)
-        if selection == len(unique_categories) + 2:
-            # User chose to return to the main menu
-            print("Returning to Main Menu...")
-            return
-        elif 1 <= selection <= len(unique_categories):
-            # Selected a specific category
-            selected_category = unique_categories[selection - 1]
-            category_flashcards = [fc for fc in flashcards if (fc["category"] if fc["category"] else "Uncategorized") == selected_category]
-            print(f"\nQuiz Cards in category '{selected_category}':")
-        else:
-            # View all flashcards
-            category_flashcards = flashcards
-            print("\nAll Quiz Cards:")
-        
-        # Display the selected flashcards
-        if not category_flashcards:
-            print("No Quiz Cards found in this category.")
-        else:
-            for index, flashcard in enumerate(category_flashcards, start=1):
-                category = flashcard['category'] if flashcard['category'] else "Uncategorized"
-                print(f"{index}. Term: {flashcard['term']} | Definition: {flashcard['definition']} | Category: {category}")
-                
-    except ValueError:
-        print_error("Please enter a valid number.")
-    
+        # Prompt user to select a category or view all flashcards
+        try:
+            selection = get_valid_integer("Select a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 2)
+            if selection == len(unique_categories) + 2:
+                # User chose to return to the previous menu
+                print("Returning to Quiz Card Management...")
+                return
+            elif 1 <= selection <= len(unique_categories):
+                # Selected a specific category
+                selected_category = unique_categories[selection - 1]
+                category_flashcards = [fc for fc in flashcards if (fc["category"] if fc["category"] else "Uncategorized") == selected_category]
+                print(f"\nQuiz Cards in category '{selected_category}':")
+            else:
+                # View all flashcards
+                category_flashcards = flashcards
+                print("\nAll Quiz Cards:")
+
+            # Display the selected flashcards
+            if not category_flashcards:
+                print("No Quiz Cards found in this category.")
+            else:
+                for index, flashcard in enumerate(category_flashcards, start=1):
+                    category = flashcard['category'] if flashcard['category'] else "Uncategorized"
+                    print(f"{index}. Term: {flashcard['term']} | Definition: {flashcard['definition']} | Category: {category}")
+                    
+            # Prompt user to view other flashcards or return to main menu
+            continue_choice = input("\nWould you like to view other flashcards? (yes to continue, no to return to previous menu): ").strip().lower()
+            if continue_choice != "yes":
+                break
+
+        except ValueError:
+            print_error("Please enter a valid number.")
+
     print("Returning to Quiz Card Management...")
 
 def edit_flashcard():
