@@ -166,21 +166,24 @@ def edit_flashcard():
 
 def delete_flashcard():
     """
-    Allows users to delete flashcards.
+    Allows users to delete flashcards. 
+    Displays all flashcards using display_flashcards for selection,
+    and prompts the user to select one for deletion by index.
     """
     if not flashcards:
         print("No Quiz Cards to delete.")
         print("Returning to Main Menu...")
         return
-    
-    view_flashcards()  # Display current flashcards with indexes
-    
+
+    # Display current flashcards without prompts
+    display_flashcards()
+
     # Get a valid flashcard index from the user
     index = get_valid_index("Enter the number of the Quiz Card to delete: ", len(flashcards) - 1)
     flashcard = flashcards[index]
-    
+
     print(f"\nSelected Quiz Card:\nTerm: {flashcard['term']}\nDefinition: {flashcard['definition']}\nCategory: {flashcard['category'] or 'Uncategorized'}")
-    
+
     # Ask for confirmation before deletion
     if confirm_action("Are you sure you want to delete this flashcard? (yes/no): "):
         del flashcards[index]
@@ -270,7 +273,7 @@ def display_flashcards():
 
     # Prompt user to select a category or view all flashcards
     try:
-        selection = get_valid_integer("Select a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 1)
+        selection = get_valid_integer("Select a category by number (or choose 'View All Quiz Cards'): ", 1, len(unique_categories) + 1)
         if 1 <= selection <= len(unique_categories):
             selected_category = unique_categories[selection - 1]
             category_flashcards = [fc for fc in flashcards if (fc["category"] if fc["category"] else "Uncategorized") == selected_category]
