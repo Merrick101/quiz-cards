@@ -257,3 +257,18 @@ def get_valid_index(prompt, max_index):
         except ValueError:
             print_error("Invalid input. Please enter a valid number.")
 
+def get_valid_integer(prompt, min_value, max_value):
+    """
+    Prompts the user to enter an integer within a specified range, re-prompting 
+    for invalid input. Ensures the integer falls between min_value and max_value.
+    """
+    while True:
+        try:
+            value = int(input(prompt))
+            if min_value <= value <= max_value:
+                return value
+            else:
+                print_error(f"Please enter a number between {min_value} and {max_value}.")
+        except ValueError:
+            print_error("Invalid input. Please enter a valid number.")
+
