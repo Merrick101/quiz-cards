@@ -475,7 +475,7 @@ def view_progress():
         # Calculate average success rate
         average_success_rate = (total_score / total_questions) * 100 if total_questions > 0 else 0
 
-                # Display summary statistics
+        # Display summary statistics
         print("\nProgress Summary:")
         print(f"Total Quizzes Taken: {num_quizzes}")
         print(f"Average Success Rate: {average_success_rate:.2f}%")
