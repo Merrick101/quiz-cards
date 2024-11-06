@@ -109,3 +109,35 @@ def add_flashcard():
     else:
         print_error("Both term and definition are required.")
 
+# --- Flashcard Management Functions ---
+
+def add_flashcard():
+    """
+    Prompts the user to input a term, definition, and optional category to 
+    create a new flashcard. Validates that both term and definition are provided.
+    Assigns 'Uncategorized' if no category is given. Auto-saves flashcards upon 
+    successful addition.
+    """
+    print("\nAdd a New Quiz Card")
+    print("You’ll be asked to enter a term/question followed by its definition/answer, and an optional category.")
+    print("Example: Term = Python, Definition = A high-level programming language, Category = Programming")
+    
+    term = input("Enter the term/question: ").strip()
+    definition = input("Enter the definition/answer: ").strip()
+    category = input("Enter the category (or press Enter to skip): ").strip().title()
+    
+    if term and definition:  # Validation for term and definition only followed by confirmation prompt
+        print(f"\nYou entered:\nTerm: {term}\nDefinition: {definition}\nCategory: {category or 'Uncategorized'}")
+        if confirm_action("Do you want to add this Quiz Card? (yes/no): "):
+            flashcards.append({
+                "term": term,
+                "definition": definition,
+                "category": category if category else "Uncategorized"
+            })
+            print("Quiz Card added successfully!")
+            save_flashcards()  # Auto-save enabled
+        else:
+            print("Quiz Card not added.")
+    else:
+        print_error("Both term and definition are required.")
+
