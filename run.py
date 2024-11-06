@@ -515,3 +515,31 @@ def main_menu():
         else:
             print_error("Invalid option. Please try again.")
 
+def flashcard_management_menu():
+    """
+    Submenu for managing flashcards.
+    """
+    while True:
+        print("\nQuiz Card Management\n")
+        print("1. Add a Quiz Card")
+        print("2. View Quiz Cards")
+        print("3. Edit a Quiz Card")
+        print("4. Delete a Quiz Card")
+        print("5. Return to Main Menu")
+
+        choice = input("\nPlease select an option (1-5): ")
+
+        if choice == "1":
+            add_flashcard()
+        elif choice == "2":
+            view_flashcards()
+        elif choice == "3":
+            edit_flashcard()
+        elif choice == "4":
+            delete_flashcard()
+        elif choice == "5":
+            print("Returning to Main Menu...")
+            break
+        else:
+            print_error("Invalid option. Please try again.")
+
