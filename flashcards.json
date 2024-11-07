@@ -3,10 +3,5 @@
         "term": "Algorithm",
         "definition": "A step-by-step procedure used to solve a problem or perform a computation.",
         "category": "Programming"
-    },
-    {
-        "term": "Loop",
-        "definition": "A control structure that repeats a block of code multiple times.",
-        "category": "Programming"
     }
 ]

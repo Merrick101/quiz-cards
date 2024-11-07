@@ -427,23 +427,28 @@ def run_quiz(category_flashcards, num_questions, category_name="All Categories")
 
     while total_questions < num_questions:
         flashcard = random.choice(category_flashcards)
-        if random.choice([True, False]):
-            user_answer = input(f"\nWhat is the definition of '{flashcard['term']}'? (or type 'exit' to quit): ").strip()
-            correct_answer = flashcard['definition']
-        else:
-            user_answer = input(f"\nWhat term matches the definition '{flashcard['definition']}'? (or type 'exit' to quit): ").strip()
-            correct_answer = flashcard['term']
+        question_asked = False  # Track if the question has been answered
 
-        if user_answer.lower() == "exit":
-            break
-        elif not user_answer:  # Check for empty input
-            print("\nNo answer provided. Please enter an answer.")
-            continue
-        elif user_answer.lower() == correct_answer.lower():
-            print("\nCorrect!")
-            correct_count += 1
-        else:
-            print(f"\nIncorrect. The correct answer is: {correct_answer}")
+        while not question_asked:
+            if random.choice([True, False]):
+                user_answer = input(f"\nWhat is the definition of '{flashcard['term']}'? (or type 'exit' to quit): ").strip()
+                correct_answer = flashcard['definition']
+            else:
+                user_answer = input(f"\nWhat term matches the definition '{flashcard['definition']}'? (or type 'exit' to quit): ").strip()
+                correct_answer = flashcard['term']
+
+            if user_answer.lower() == "exit":
+                return  # End the quiz if the user wants to exit
+            elif not user_answer:  # Check for empty input
+                print("\nNo answer provided. Please enter an answer.")
+            elif user_answer.lower() == correct_answer.lower():
+                print("\nCorrect!")
+                correct_count += 1
+                question_asked = True  # Mark question as answered
+            else:
+                print(f"\nIncorrect. The correct answer is: {correct_answer}")
+                question_asked = True  # Mark question as answered
+
         total_questions += 1
 
     # Only save progress if at least one question was attempted
