@@ -185,14 +185,14 @@ def edit_flashcard():
     display_flashcards()  # Display flashcards without navigation options
 
     # Get a valid flashcard index from the user
-    index = get_valid_index("Enter the number of the Quiz Card you want to edit: ", len(flashcards) - 1)
+    index = get_valid_index("\nEnter the number of the Quiz Card you want to edit: ", len(flashcards) - 1)
     flashcard = flashcards[index]
 
     print(f"\nSelected Quiz Card: Term = '{flashcard['term']}', Definition = '{flashcard['definition']}', Category = '{flashcard['category'] or 'Uncategorized'}'")
 
     # Ask for confirmation before allowing edits
-    if not confirm_action("Do you want to edit this Quiz Card? (yes/no): "):
-        print("Edit cancelled.")
+    if not confirm_action("\nDo you want to edit this Quiz Card? (yes/no): "):
+        print("\nEdit cancelled.")
         return
 
     new_term = input("Enter the new term (or press Enter to keep the current term): ").strip() or flashcard['term']
@@ -233,7 +233,7 @@ def delete_flashcard():
     print(f"\nSelected Quiz Card:\nTerm: {flashcard['term']}\nDefinition: {flashcard['definition']}\nCategory: {flashcard['category'] or 'Uncategorized'}")
 
     # Ask for confirmation before deletion
-    if confirm_action("Are you sure you want to delete this flashcard? (yes/no): "):
+    if confirm_action("\nAre you sure you want to delete this flashcard? (yes/no): "):
         del flashcards[index]
         print("\nQuiz Card deleted successfully.")
         save_flashcards()  # Auto-save enabled
@@ -335,7 +335,7 @@ def display_flashcards():
         else:
             for index, flashcard in enumerate(category_flashcards, start=1):
                 category = flashcard['category'] if flashcard['category'] else "Uncategorized"
-                print(f"{index}. Term: {flashcard['term']} | Definition: {flashcard['definition']} | Category: {category}")
+                print(f"\n{index}. Term: {flashcard['term']} \nDefinition: {flashcard['definition']} \nCategory: {category}")
                 
     except ValueError:
         print_error("\nPlease enter a valid number.")
