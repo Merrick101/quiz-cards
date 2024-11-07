@@ -1,1 +1,23 @@
-[]
+[
+    {
+        "date": "2024-11-07 14:02:43",
+        "category": "All Categories",
+        "score": 0,
+        "total_questions": 2,
+        "success_rate": 0.0
+    },
+    {
+        "date": "2024-11-07 14:03:25",
+        "category": "All Categories",
+        "score": 0,
+        "total_questions": 2,
+        "success_rate": 0.0
+    },
+    {
+        "date": "2024-11-07 14:03:52",
+        "category": "All Categories",
+        "score": 0,
+        "total_questions": 2,
+        "success_rate": 0.0
+    }
+]

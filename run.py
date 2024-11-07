@@ -366,7 +366,7 @@ def start_quiz():
         
         # Prompt user for category selection
         try:
-            selection = get_valid_integer("Select a category by number (or choose 'All Categories'): ", 1, len(unique_categories) + 1)
+            selection = get_valid_integer("\nSelect a category by number (or choose 'All Categories'): ", 1, len(unique_categories) + 1)
             if 1 <= selection <= len(unique_categories):
                 category = unique_categories[selection - 1]
                 
@@ -375,10 +375,10 @@ def start_quiz():
                 
                 # Check if there are any flashcards in the selected category
                 if not category_flashcards:
-                    print(f"No Quiz Cards found for category '{category}'. Please add flashcards to this category.")
+                    print(f"\nNo Quiz Cards found for category '{category}'. Please add flashcards to this category.")
                     return
                 
-                print(f"Starting quiz on category '{category}'...")
+                print(f"\nStarting quiz on category '{category}'...")
             elif selection == len(unique_categories) + 1:
                 category_flashcards = flashcards  # All categories selected
                 print("\nStarting quiz on all categories...")
@@ -391,7 +391,7 @@ def start_quiz():
         
         # Prompt for the number of questions if flashcards are available in the chosen category
         max_questions = len(category_flashcards)
-        num_questions = get_valid_integer(f"How many questions would you like? (1-{max_questions}): ", 1, max_questions)
+        num_questions = get_valid_integer(f"\nHow many questions would you like? (1-{max_questions}): ", 1, max_questions)
         
         # Run the quiz
         run_quiz(category_flashcards, num_questions, category_name=unique_categories[selection - 1] if selection <= len(unique_categories) else "All Categories")
@@ -399,7 +399,7 @@ def start_quiz():
         # Post-quiz options
         while True:
             print("\nQuiz Complete! What would you like to do next?")
-            print("1. Try the same quiz again")
+            print("\n1. Try the same quiz again")
             print("2. Start a new quiz")
             print("3. Return to Main Menu")
             
@@ -428,27 +428,27 @@ def run_quiz(category_flashcards, num_questions, category_name="All Categories")
     while total_questions < num_questions:
         flashcard = random.choice(category_flashcards)
         if random.choice([True, False]):
-            user_answer = input(f"What is the definition of '{flashcard['term']}'? (or type 'exit' to quit): ").strip()
+            user_answer = input(f"\nWhat is the definition of '{flashcard['term']}'? (or type 'exit' to quit): ").strip()
             correct_answer = flashcard['definition']
         else:
-            user_answer = input(f"What term matches the definition '{flashcard['definition']}'? (or type 'exit' to quit): ").strip()
+            user_answer = input(f"\nWhat term matches the definition '{flashcard['definition']}'? (or type 'exit' to quit): ").strip()
             correct_answer = flashcard['term']
 
         if user_answer.lower() == "exit":
             break
         elif user_answer.lower() == correct_answer.lower():
-            print("Correct!")
+            print("\nCorrect!")
             correct_count += 1
         else:
-            print(f"Incorrect. The correct answer is: {correct_answer}")
+            print(f"\nIncorrect. The correct answer is: {correct_answer}")
         total_questions += 1
 
     # Only save progress if at least one question was attempted
     if total_questions > 0:
-        print(f"Quiz complete! You scored {correct_count} out of {total_questions}.")
+        print(f"\nQuiz complete! You scored {correct_count} out of {total_questions}.")
         save_progress(category_name, correct_count, total_questions)
     else:
-        print("No questions were attempted; progress will not be saved.")
+        print("\nNo questions were attempted; progress will not be saved.")
 
 def save_progress(category, correct_count, total_questions):
     """
