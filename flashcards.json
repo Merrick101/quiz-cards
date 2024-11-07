@@ -1,1 +1,7 @@
-[]
+[
+    {
+        "term": "Algorithm",
+        "definition": "A step-by-step procedure used to solve a problem or perform a computation.",
+        "category": "Programming"
+    }
+]

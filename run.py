@@ -131,7 +131,7 @@ def view_flashcards():
 
         # Prompt user to select a category or view all flashcards
         try:
-            selection = get_valid_integer("Select a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 2)
+            selection = get_valid_integer("/nSelect a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 2)
             if selection == len(unique_categories) + 2:
                 # User chose to return to the previous menu
                 print("Returning to Previous Menu...")
