@@ -152,7 +152,7 @@ def view_flashcards():
             else:
                 for index, flashcard in enumerate(category_flashcards, start=1):
                     category = flashcard['category'] if flashcard['category'] else "Uncategorized"
-                    print(f"{index}. Term: {flashcard['term']} | Definition: {flashcard['definition']} | Category: {category}")
+                    print(f"\n{index}. Term: {flashcard['term']}  \nDefinition: {flashcard['definition']}  \nCategory: {category}")
 
             # Prompt user to view other flashcards or return to main menu
             while True:
