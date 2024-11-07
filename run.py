@@ -538,18 +538,23 @@ def view_progress():
         else:
             print(f"Lowest Score Achieved: {lowest_score if lowest_score is not None else 0}")
         
-        # Offer option to clear progress
-        clear_progress = input("\nWould you like to clear all quiz progress? (yes/no): ").strip().lower()
-        if clear_progress == "yes":
-            confirm_clear = input("Are you sure you want to delete all progress? This action cannot be undone. (yes/no): ").strip().lower()
-            if confirm_clear == "yes":
-                with open(progress_file, "w") as file:
-                    json.dump([], file)
-                print("\nAll quiz progress has been cleared.")
+        # Offer option to clear progress with stricter input handling
+        while True:
+            clear_progress = input("\nWould you like to clear all quiz progress? (yes/no): ").strip().lower()
+            if clear_progress == "yes":
+                confirm_clear = input("\nAre you sure you want to delete all progress? This action cannot be undone. (yes/no): ").strip().lower()
+                if confirm_clear == "yes":
+                    with open(progress_file, "w") as file:
+                        json.dump([], file)
+                    print("\nAll quiz progress has been cleared.")
+                else:
+                    print("\nClear progress cancelled.")
+                break
+            elif clear_progress == "no":
+                print("Returning to Main Menu...")
+                break
             else:
-                print("\nClear progress canceled.")
-        else:
-            print("Returning to Main Menu...")
+                print("\nInvalid input. Please enter 'yes' or 'no'.")
 
     except FileNotFoundError:
         print("\nNo quiz progress available.")
