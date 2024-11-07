@@ -88,7 +88,7 @@ def add_flashcard():
     """
     print("\nAdd a New Quiz Card")
     print("\nYou’ll be asked to enter a term/question followed by its definition/answer, and an optional category.")
-    print("\nExample: Term = Python, Definition = A high-level programming language, Category = Programming")
+    print("\nExample: \nTerm = Python \nDefinition = A high-level programming language \nCategory = Programming")
     
     term = input("\nEnter the term/question: ").strip()
     definition = input("Enter the definition/answer: ").strip()
