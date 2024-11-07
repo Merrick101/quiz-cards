@@ -436,6 +436,9 @@ def run_quiz(category_flashcards, num_questions, category_name="All Categories")
 
         if user_answer.lower() == "exit":
             break
+        elif not user_answer:  # Check for empty input
+            print("\nNo answer provided. Please enter an answer.")
+            continue
         elif user_answer.lower() == correct_answer.lower():
             print("\nCorrect!")
             correct_count += 1
