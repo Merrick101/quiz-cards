@@ -40,9 +40,9 @@ def load_flashcards(filename="flashcards.json"):
             flashcards = json.load(file)
         print("\nQuiz Cards loaded successfully.")
     except FileNotFoundError:
-        print("No saved Quiz Cards found. Starting with an empty list.")
+        print("\nNo saved Quiz Cards found. Starting with an empty list.")
     except json.JSONDecodeError:
-        print_error("Corrupted file. Starting with an empty list.")
+        print_error("\nCorrupted file. Starting with an empty list.")
         flashcards = []
 
 def save_flashcards(filename="flashcards.json"):
@@ -88,7 +88,7 @@ def add_flashcard():
     """
     print("\nAdd a New Quiz Card")
     print("\nYou’ll be asked to enter a term/question followed by its definition/answer, and an optional category.")
-    print("Example: Term = Python, Definition = A high-level programming language, Category = Programming")
+    print("\nExample: Term = Python, Definition = A high-level programming language, Category = Programming")
     
     term = input("\nEnter the term/question: ").strip()
     definition = input("Enter the definition/answer: ").strip()
@@ -102,12 +102,13 @@ def add_flashcard():
                 "definition": definition,
                 "category": category if category else "Uncategorized"
             })
-            print("Quiz Card added successfully!")
+            print("\nQuiz Card added successfully!")
             save_flashcards()  # Auto-save enabled
         else:
-            print("Quiz Card not added.")
+            print("\nQuiz Card not added.")
     else:
-        print_error("Both term and definition are required.")
+        print_error("\nBoth term and definition are required.")
+        print("Returning to Previous Menu...")
 
 def view_flashcards():
     """
@@ -115,8 +116,8 @@ def view_flashcards():
     Provides an option to view other flashcards or return to the main menu.
     """
     if not flashcards:
-        print("No Quiz Cards available.")
-        print("Returning to Quiz Card Management...")
+        print("\nNo Quiz Cards available.")
+        print("Returning to Previous Menu...")
         return  # Exit if there are no flashcards to view
 
     while True:
@@ -133,7 +134,7 @@ def view_flashcards():
             selection = get_valid_integer("Select a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 2)
             if selection == len(unique_categories) + 2:
                 # User chose to return to the previous menu
-                print("Returning to Quiz Card Management...")
+                print("Returning to Previous Menu...")
                 return
             elif 1 <= selection <= len(unique_categories):
                 # Selected a specific category
@@ -147,7 +148,7 @@ def view_flashcards():
 
             # Display the selected flashcards
             if not category_flashcards:
-                print("No Quiz Cards found in this category.")
+                print("\nNo Quiz Cards found in this category.")
             else:
                 for index, flashcard in enumerate(category_flashcards, start=1):
                     category = flashcard['category'] if flashcard['category'] else "Uncategorized"
@@ -161,7 +162,7 @@ def view_flashcards():
         except ValueError:
             print_error("Please enter a valid number.")
 
-    print("Returning to Quiz Card Management...")
+    print("Returning to Previous Menu...")
 
 def edit_flashcard():
     """
@@ -171,8 +172,8 @@ def edit_flashcard():
     definition, or category. Changes are saved upon confirmation.
     """
     if not flashcards:
-        print("No Quiz Cards available to edit.")
-        print("Returning to Main Menu...")
+        print("\nNo Quiz Cards available to edit.")
+        print("Returning to Previous Menu...")
         return
 
     display_flashcards()  # Display flashcards without navigation options
@@ -185,7 +186,7 @@ def edit_flashcard():
 
     # Ask for confirmation before allowing edits
     if not confirm_action("Do you want to edit this Quiz Card? (yes/no): "):
-        print("Edit canceled.")
+        print("Edit cancelled.")
         return
 
     new_term = input("Enter the new term (or press Enter to keep the current term): ").strip() or flashcard['term']
@@ -194,16 +195,16 @@ def edit_flashcard():
 
     # Display changes and ask for final confirmation
     print(f"\nUpdated Quiz Card:\nTerm: {new_term}\nDefinition: {new_definition}\nCategory: {new_category or 'Uncategorized'}")
-    if confirm_action("Do you want to save these changes? (yes/no): "):
+    if confirm_action("\nDo you want to save these changes? (yes/no): "):
         flashcard.update({
             "term": new_term,
             "definition": new_definition,
             "category": new_category if new_category else "Uncategorized"
         })
-        print("Quiz Card updated successfully!")
+        print("\nQuiz Card updated successfully!")
         save_flashcards()  # Auto-save enabled
     else:
-        print("Changes not saved.")
+        print("\nChanges not saved.")
 
 def delete_flashcard():
     """
@@ -212,8 +213,8 @@ def delete_flashcard():
     and prompts the user to select one for deletion by index.
     """
     if not flashcards:
-        print("No Quiz Cards to delete.")
-        print("Returning to Main Menu...")
+        print("\nNo Quiz Cards to delete.")
+        print("Returning to Previous Menu...")
         return
 
     # Display current flashcards without prompts
@@ -228,10 +229,10 @@ def delete_flashcard():
     # Ask for confirmation before deletion
     if confirm_action("Are you sure you want to delete this flashcard? (yes/no): "):
         del flashcards[index]
-        print("Quiz Card deleted successfully.")
+        print("\nQuiz Card deleted successfully.")
         save_flashcards()  # Auto-save enabled
     else:
-        print("Quiz Card not deleted.")
+        print("\nQuiz Card not deleted.")
 
 def list_categories():
     """
@@ -295,7 +296,7 @@ def get_valid_integer(prompt, min_value, max_value):
             else:
                 print_error(f"Please enter a number between {min_value} and {max_value}.")
         except ValueError:
-            print_error("Invalid input. Please enter a valid number.")
+            print_error("\nInvalid input. Please enter a valid number.")
 
 def display_flashcards():
     """
@@ -303,7 +304,7 @@ def display_flashcards():
     Used as a helper function in other parts of the program.
     """
     if not flashcards:
-        print("No Quiz Cards available.")
+        print("\nNo Quiz Cards available.")
         return
 
     unique_categories = sorted(set(fc["category"] if fc["category"] else "Uncategorized" for fc in flashcards))
@@ -324,14 +325,14 @@ def display_flashcards():
             print("\nAll Quiz Cards:")
 
         if not category_flashcards:
-            print("No Quiz Cards found in this category.")
+            print("\nNo Quiz Cards found in this category.")
         else:
             for index, flashcard in enumerate(category_flashcards, start=1):
                 category = flashcard['category'] if flashcard['category'] else "Uncategorized"
                 print(f"{index}. Term: {flashcard['term']} | Definition: {flashcard['definition']} | Category: {category}")
                 
     except ValueError:
-        print_error("Please enter a valid number.")
+        print_error("\nPlease enter a valid number.")
 
 # --- Quiz Functions ---
 
@@ -343,7 +344,7 @@ def start_quiz():
     main menu.
     """
     if not flashcards:
-        print("No Quiz Cards available for quiz. Please add Quiz Cards first.")
+        print("\nNo Quiz Cards available for quiz. Please add Quiz Cards first.")
         print("Returning to Main Menu...")
         return
 
@@ -374,12 +375,12 @@ def start_quiz():
                 print(f"Starting quiz on category '{category}'...")
             elif selection == len(unique_categories) + 1:
                 category_flashcards = flashcards  # All categories selected
-                print("Starting quiz on all categories...")
+                print("\nStarting quiz on all categories...")
             else:
-                print_error("Invalid selection. Please enter a number corresponding to the category list.")
+                print_error("\nInvalid selection. Please enter a number corresponding to the category list.")
                 continue
         except ValueError:
-            print_error("Please enter a valid number.")
+            print_error("\nPlease enter a valid number.")
             continue
         
         # Prompt for the number of questions if flashcards are available in the chosen category
@@ -396,7 +397,7 @@ def start_quiz():
             print("2. Start a new quiz")
             print("3. Return to Main Menu")
             
-            next_action = get_valid_integer("Choose an option (1-3): ", 1, 3)
+            next_action = get_valid_integer("\nChoose an option (1-3): ", 1, 3)
 
             if next_action == 1:
                 # Retry the same quiz with the same category and question count
@@ -471,7 +472,7 @@ def save_progress(category, correct_count, total_questions):
     with open(progress_file, "w") as file:
         json.dump(progress_data, file, indent=4)
 
-    print("Progress saved successfully!")
+    print("\nProgress saved successfully!")
 
 # --- Progress Management Function ---
 
@@ -487,7 +488,7 @@ def view_progress():
             progress_data = json.load(file)
         
         if not progress_data:
-            print("No quiz progress available.")
+            print("\nNo quiz progress available.")
             print("Returning to Main Menu...")
             return
 
@@ -538,16 +539,16 @@ def view_progress():
             if confirm_clear == "yes":
                 with open(progress_file, "w") as file:
                     json.dump([], file)
-                print("All quiz progress has been cleared.")
+                print("\nAll quiz progress has been cleared.")
             else:
-                print("Clear progress canceled.")
+                print("\nClear progress canceled.")
         else:
             print("Returning to Main Menu...")
 
     except FileNotFoundError:
-        print("No quiz progress available.")
+        print("\nNo quiz progress available.")
     except json.JSONDecodeError:
-        print_error("Progress data file is corrupted.")
+        print_error("\nProgress data file is corrupted.")
 
 # --- Main Control Functions ---
 
@@ -574,7 +575,7 @@ def main_menu():
             save_flashcards()
             break
         else:
-            print_error("Invalid option. Please try again.")
+            print_error("\nInvalid option. Please try again.")
 
 def flashcard_management_menu():
     """
@@ -602,7 +603,7 @@ def flashcard_management_menu():
             print("Returning to Main Menu...")
             break
         else:
-            print_error("Invalid option. Please try again.")
+            print_error("\nInvalid option. Please try again.")
 
 def main():
     """
