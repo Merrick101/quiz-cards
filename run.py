@@ -131,7 +131,7 @@ def view_flashcards():
 
         # Prompt user to select a category or view all flashcards
         try:
-            selection = get_valid_integer("\nSelect a category by number (or choose 'View All Flashcards'): ", 1, len(unique_categories) + 2)
+            selection = get_valid_integer("\nSelect a category by number (or choose 'View All Quiz Cards'): ", 1, len(unique_categories) + 2)
             if selection == len(unique_categories) + 2:
                 # User chose to return to the previous menu
                 print("Returning to Previous Menu...")
@@ -155,8 +155,15 @@ def view_flashcards():
                     print(f"{index}. Term: {flashcard['term']} | Definition: {flashcard['definition']} | Category: {category}")
 
             # Prompt user to view other flashcards or return to main menu
-            continue_choice = input("\nWould you like to view other flashcards? (yes to continue, no to return to previous menu): ").strip().lower()
-            if continue_choice != "yes":
+            while True:
+                continue_choice = input("\nWould you like to view other flashcards? (yes to continue, no to return to previous menu): ").strip().lower()
+                if continue_choice in ("yes", "no"):
+                    break  # Exit loop if the input is valid
+                else:
+                    print_error("Please enter 'yes' or 'no'.")  # Re-prompt for valid input
+            
+            # Exit the view loop if the answer is 'no'
+            if continue_choice == "no":
                 break
 
         except ValueError:
