@@ -1,32 +1,83 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Quiz Cards
 
-Welcome,
+## Overview
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **May 14, 2024**
+Quiz Cards is an interactive command-line flashcard application that enables users to create, manage, and quiz themselves on a set of custom flashcards. Designed for anyone looking to improve their knowledge retention, Quiz Cards allows users to organize flashcards by category, test their understanding through a quiz mode, and track progress over time.
 
-## Reminders
+## How it Works
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+Users can create flashcards by specifying a term, a definition, and an optional category. Flashcards are stored in a JSON file, allowing for easy persistence across sessions. Users can access flashcards by category, edit or delete cards, and quiz themselves with randomly selected flashcards from a chosen category or the entire collection. The progress of each quiz is recorded to enable tracking over time.
 
-## Creating the Heroku app
+## Features
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+### Existing Features
 
-1. `heroku/python`
-2. `heroku/nodejs`
+**Add Flashcards**
+- Users can create new flashcards by providing a term, definition, and an optional category. Flashcards are automatically saved to a JSON file for persistence.
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+**View Flashcards by Category**
+- Users can view flashcards in a specific category or view all flashcards at once. This feature allows for efficient review of relevant topics.
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+**Edit and Delete Flashcards**
+- Users have the ability to modify or delete flashcards as needed, helping to keep their study set accurate and current.
 
-Connect your GitHub repository and deploy as normal.
+**Quiz Mode**
+- Users can test their knowledge by starting a quiz in a specific category or with all flashcards. Each quiz session provides feedback on correctness and tracks overall performance.
 
-## Constraints
+**Progress Tracking**
+- Each quiz session is saved in a JSON file, recording the date, category, score, and success rate. Users can view a summary of their performance history.
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+### Future Features
 
----
+**Flashcard Import/Export**
+- Add functionality to import or export flashcards to share with others or to backup data.
 
-Happy coding!
+**Advanced Quiz Customization**
+- Provide options for users to set time limits on questions or select specific difficulty levels.
+
+**Enhanced Progress Analysis**
+- Generate detailed performance analytics, such as average accuracy per category and improvement trends over time.
+
+## Data Model
+
+The application uses JSON files to store flashcard and progress data. Flashcards are stored in flashcards.json, with each flashcard containing a term, definition, and an optional category. Progress tracking is managed in progress.json, storing data about each quiz, such as date, category, score, total_questions, and success_rate.
+
+## Testing
+
+### Bugs
+
+**Solved Bugs**
+
+- Enhanced Navigation Options
+Implemented stricter input handling for confirmation prompts and category selection, reducing the impact of invalid inputs.
+
+- Empty Input Handling: Pressing "Enter" without entering a response in quiz mode originally marked the answer as incorrect.
+
+- Quiz Mode Input Validation
+Resolved issue where pressing "Enter" without an answer caused the quiz to move to the next question by adding validation for non-empty input.
+
+- Unexpected Characters in Input: Non-integer inputs in selection prompts could cause errors in earlier versions.
+
+**Remaining Bugs**
+
+- None Identified: All known bugs have been resolved.
+
+### Validator Testing
+
+## Deployment
+
+### Steps for Deployment
+
+## Credits
+
+**Code**
+
+- Code structure and functions were inspired by Python command-line application best practices.
+
+**Content**
+
+- Flashcard content was curated for demonstration purposes from various educational sources.
+
+**Acknowledgments**
+
+- Thanks to Code Institute for providing the template used in this project, and for the lessons featured in the Python Essentials & Love Sandwiches modules.
