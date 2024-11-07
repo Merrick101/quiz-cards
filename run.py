@@ -75,7 +75,6 @@ def display_welcome_message():
     print("5. Test yourself with the Quiz Mode and track your progress over time.")
     print()
     print("Let’s get started and make your learning journey interactive and fun!")
-    print("*****************************************")
 
 # --- Flashcard Management Functions ---
 
