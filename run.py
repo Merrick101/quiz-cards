@@ -65,14 +65,16 @@ def display_welcome_message():
     print("        Welcome to Quiz Cards!")
     print("*****************************************")
     print()
-    print("Boost your knowledge with Quiz Cards - your personal flashcard quiz tool!")
+    print("Boost your knowledge with Quiz Cards - "
+      "your personal flashcard quiz tool!")
     print()
     print("What you can do with Quiz Cards:")
     print("1. Add your own Quiz Cards for a custom learning experience.")
     print("2. View and manage all Quiz Cards to reinforce what you've learned.")
     print("3. Sort Quiz Cards into categories to keep everything organized.")
     print("4. Delete Quiz Cards you no longer need to stay focused.")
-    print("5. Test yourself with the Quiz Mode and track your progress over time.")
+    print("5. Test yourself with the Quiz Mode and "
+      "track your progress over time.")
     print()
     print("Let’s get started and make your learning journey interactive and fun!")
 
@@ -86,15 +88,18 @@ def add_flashcard():
     successful addition.
     """
     print("\nAdd a New Quiz Card")
-    print("\nYou’ll be asked to enter a term/question followed by its definition/answer, and an optional category.")
-    print("\nExample: \nTerm = Python \nDefinition = A high-level programming language \nCategory = Programming")
+    print("\nYou’ll be asked to enter a term/question followed by its "
+      "definition/answer, and an optional category.")
+    print("\nExample: \nTerm = Python \nDefinition = A high-level programming language"
+      "\nCategory = Programming")
     
     term = input("\nEnter the term/question: ").strip()
     definition = input("Enter the definition/answer: ").strip()
     category = input("Enter the category (or press Enter to skip): ").strip().title()
     
     if term and definition:  # Validation for term and definition only followed by confirmation prompt
-        print(f"\nYou entered:\nTerm: {term}\nDefinition: {definition}\nCategory: {category or 'Uncategorized'}")
+        print(f"\nYou entered:\nTerm: {term}\nDefinition: {definition}\n"
+        f"Category: {category or 'Uncategorized'}")
         if confirm_action("\nDo you want to add this Quiz Card? (yes/no): "):
             flashcards.append({
                 "term": term,
@@ -130,7 +135,10 @@ def view_flashcards():
 
         # Prompt user to select a category or view all flashcards
         try:
-            selection = get_valid_integer("\nSelect a category by number (or choose 'View All Quiz Cards'): ", 1, len(unique_categories) + 2)
+            selection = get_valid_integer(
+            "\nSelect a category by number (or choose 'View All Quiz Cards'): ", 
+            1, len(unique_categories) + 2
+            )
             if selection == len(unique_categories) + 2:
                 # User chose to return to the previous menu
                 print("Returning to Previous Menu...")
@@ -151,11 +159,14 @@ def view_flashcards():
             else:
                 for index, flashcard in enumerate(category_flashcards, start=1):
                     category = flashcard['category'] if flashcard['category'] else "Uncategorized"
-                    print(f"\n{index}. Term: {flashcard['term']}  \nDefinition: {flashcard['definition']}  \nCategory: {category}")
+                    print(f"\n{index}. Term: {flashcard['term']}  \nDefinition: {flashcard['definition']}  "
+                    f"\nCategory: {category}")
 
             # Prompt user to view other flashcards or return to main menu
             while True:
-                continue_choice = input("\nWould you like to view other flashcards? (yes to continue, no to return to previous menu): ").strip().lower()
+                continue_choice = input(
+                    "\nWould you like to view other flashcards? (yes to continue, no to return to previous menu): "
+                ).strip().lower()
                 if continue_choice in ("yes", "no"):
                     break  # Exit loop if the input is valid
                 else:
@@ -359,14 +370,17 @@ def start_quiz():
 
         # Display available categories
         unique_categories = sorted(set(fc["category"] or "Uncategorized" for fc in flashcards))
-        print("Available Categories:")
+        print("\nAvailable Categories:")
         for idx, category in enumerate(unique_categories, start=1):
-            print(f"{idx}. {category}")
+            print(f"\n{idx}. {category}")
         print(f"{len(unique_categories) + 1}. All Categories")
         
         # Prompt user for category selection
         try:
-            selection = get_valid_integer("\nSelect a category by number (or choose 'All Categories'): ", 1, len(unique_categories) + 1)
+            selection = get_valid_integer(
+            "\nSelect a category by number (or choose 'All Categories'): ", 
+            1, len(unique_categories) + 1
+            )
             if 1 <= selection <= len(unique_categories):
                 category = unique_categories[selection - 1]
                 
@@ -375,7 +389,8 @@ def start_quiz():
                 
                 # Check if there are any flashcards in the selected category
                 if not category_flashcards:
-                    print(f"\nNo Quiz Cards found for category '{category}'. Please add flashcards to this category.")
+                    print(f"\nNo Quiz Cards found for category '{category}'. "
+                    "Please add flashcards to this category.")
                     return
                 
                 print(f"\nStarting quiz on category '{category}'...")
@@ -391,10 +406,16 @@ def start_quiz():
         
         # Prompt for the number of questions if flashcards are available in the chosen category
         max_questions = len(category_flashcards)
-        num_questions = get_valid_integer(f"\nHow many questions would you like? (1-{max_questions}): ", 1, max_questions)
-        
+        num_questions = get_valid_integer(
+        f"\nHow many questions would you like? (1-{max_questions}): ", 1, max_questions
+        )
+       
         # Run the quiz
-        run_quiz(category_flashcards, num_questions, category_name=unique_categories[selection - 1] if selection <= len(unique_categories) else "All Categories")
+        run_quiz(
+        category_flashcards, num_questions, 
+        category_name=unique_categories[selection - 1] 
+        if selection <= len(unique_categories) else "All Categories"
+        )
 
         # Post-quiz options
         while True:
