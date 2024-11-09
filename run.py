@@ -117,11 +117,17 @@ def add_flashcard():
         "\nCategory = Programming"
     )
 
-    term = input("\nEnter the term/question: ").strip()
-    definition = input("Enter the definition/answer: ").strip()
-    category = (
-        input("Enter the category (or press Enter to skip): ").strip().title()
-    )
+    term = input(
+        "\nEnter the term/question:\n"
+    ).strip()
+
+    definition = input(
+        "Enter the definition/answer:\n"
+    ).strip()
+
+    category = input(
+        "Enter the category (or press Enter to skip):\n"
+    ).strip().title()
 
     if term and definition:  # Validation for term and definition
         print(
@@ -218,7 +224,7 @@ def view_flashcards():
             while True:
                 continue_choice = input(
                     "\nWould you like to view other flashcards? "
-                    "(yes to continue, no to return to previous menu): "
+                    "(yes to continue, no to return):\n"
                 ).strip().lower()
                 if continue_choice in ("yes", "no"):
                     break  # Exit loop if the input is valid
@@ -268,28 +274,17 @@ def edit_flashcard():
         print("\nEdit cancelled.")
         return
 
-    new_term = (
-        input(
-            "Enter the new term (or press Enter to keep the current term): "
-        ).strip()
-        or flashcard["term"]
-    )
-    new_definition = (
-        input(
-            "Enter the new definition "
-            "(or press Enter to keep the current definition): "
-        ).strip()
-        or flashcard["definition"]
-    )
-    new_category = (
-        input(
-            "Enter the new category "
-            "(or press Enter to keep the current category): "
-        )
-        .strip()
-        .title()
-        or flashcard["category"]
-    )
+    new_term = input(
+        "Enter new term (or press Enter to keep current term):\n"
+    ).strip() or flashcard["term"]
+
+    new_definition = input(
+        "Enter new definition (or press Enter to keep current definition):\n"
+    ).strip() or flashcard["definition"]
+
+    new_category = input(
+        "Enter new category (or press Enter to keep current category):\n"
+    ).strip().title() or flashcard["category"]
 
     # Display changes and ask for final confirmation
     print(
@@ -339,7 +334,7 @@ def delete_flashcard():
 
     # Ask for confirmation before deletion
     if confirm_action(
-        "\nAre you sure you want to delete this flashcard? (yes/no): "
+        "\nAre you sure you want to delete this flashcard? (yes/no):\n"
     ):
         del flashcards[index]
         print("\nQuiz Card deleted successfully.")
@@ -374,7 +369,7 @@ def confirm_action(message="Are you sure you want to proceed? (yes/no): "):
     for 'no' responses, used for potentially irreversible actions.
     """
     while True:
-        choice = input(message).strip().lower()
+        choice = input(message + "\n").strip().lower()
         if choice == "yes":
             return True
         elif choice == "no":
@@ -394,7 +389,7 @@ def get_valid_index(prompt, max_index):
     """
     while True:
         try:
-            index = int(input(prompt)) - 1  # Adjusting to zero-based index
+            index = int(input(prompt + "\n")) - 1
             if 0 <= index <= max_index:
                 return index
             else:
@@ -413,7 +408,7 @@ def get_valid_integer(prompt, min_value, max_value):
     """
     while True:
         try:
-            value = int(input(prompt))
+            value = int(input(prompt + "\n"))
             if min_value <= value <= max_value:
                 return value
             else:
@@ -516,7 +511,8 @@ def start_quiz():
         # Prompt user for category selection
         try:
             selection = get_valid_integer(
-                "\nSelect a category by number (or choose 'All Categories'): ",
+                "\nSelect a category by number "
+                "(or choose 'All Categories'):\n",
                 1,
                 len(unique_categories) + 1,
             )
@@ -555,11 +551,10 @@ def start_quiz():
         # Prompt for the number of questions
         max_questions = len(category_flashcards)
         num_questions = get_valid_integer(
-            f"\nHow many questions would you like? (1-{max_questions}): ",
+            f"\nHow many questions would you like? (1-{max_questions}):\n",
             1,
             max_questions,
         )
-
         # Run the quiz
         run_quiz(
             category_flashcards,
@@ -578,7 +573,11 @@ def start_quiz():
             print("2. Start a new quiz")
             print("3. Return to Main Menu")
 
-            next_action = get_valid_integer("\nChoose an option (1-3): ", 1, 3)
+            next_action = get_valid_integer(
+                "\nChoose an option (1-3):\n",
+                1,
+                3,
+            )
 
             if next_action == 1:
                 # Retry the same quiz with the same category and question count
@@ -621,7 +620,7 @@ def run_quiz(
             if random.choice([True, False]):
                 user_answer = input(
                     f"\nWhat is the definition of '{flashcard['term']}'? "
-                    "(or type 'exit' to quit): "
+                    "(or type 'exit' to quit):\n"
                 ).strip()
                 correct_answer = flashcard["definition"]
             else:
@@ -760,19 +759,17 @@ def view_progress():
             )
         # Offer option to clear progress with stricter input handling
         while True:
-            clear_progress = (
-                input(
-                    "\nWould you like to clear all quiz progress? (yes/no): "
-                )
-                .strip()
-                .lower()
-            )
+            clear_progress = input(
+                "\nWould you like to clear all quiz progress? (yes/no):\n"
+            ).strip().lower()
             if clear_progress == "yes":
                 confirmation_message = (
                     "\nAre you sure you want to delete all progress? "
                     "This action cannot be undone. (yes/no): "
                 )
-                confirm_clear = input(confirmation_message).strip().lower()
+                confirm_clear = input(
+                    f"{confirmation_message}\n"
+                ).strip().lower()
                 if confirm_clear == "yes":
                     with open(progress_file, "w") as file:
                         json.dump([], file)
@@ -806,7 +803,7 @@ def main_menu():
         print("3. Progress Tracking")
         print("4. Exit")
 
-        choice = input("\nPlease select an option (1-4): ")
+        choice = input("\nPlease select an option (1-4):\n")
 
         if choice == "1":
             flashcard_management_menu()
@@ -833,7 +830,7 @@ def flashcard_management_menu():
         print("4. Delete a Quiz Card")
         print("5. Return to Main Menu")
 
-        choice = input("\nPlease select an option (1-5): ")
+        choice = input("\nPlease select an option (1-5):\n")
 
         if choice == "1":
             add_flashcard()
