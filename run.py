@@ -356,8 +356,8 @@ def choose_category():
     Displays available categories and prompts the user to select one.
     """
     list_categories()
-    return input("Enter a category (or press Enter to skip): ").strip().title()
-
+    prompt = "Enter a category (or press Enter to skip):\n"
+    return input(prompt).strip().title()
 
 # --- Helper & Validation Functions ---
 
