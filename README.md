@@ -1,7 +1,5 @@
 # Quiz Cards
 
-## Overview
-
 Quiz Cards is an interactive command-line flashcard application that enables users to create, manage, and quiz themselves on a set of custom flashcards. Designed for anyone looking to improve their knowledge retention, Quiz Cards allows users to organize flashcards by category, test their understanding through a quiz mode, and track progress over time.
 
 ## How it Works
@@ -63,6 +61,16 @@ Resolved issue where pressing "Enter" without an answer caused the quiz to move 
 - None Identified: All known bugs have been resolved.
 
 ### Validator Testing
+
+**PEP8 Validation**
+
+- I passed my code through the Code Institute PEP8 linter and refactored my code after the initial results showed issues regarding whitespace and lines that exceeded 79 characters. I passed the code through the linter again to confirm that no issues remained.
+
+![PEP8 Linter Results](images/ci-python-linter-results.PNG)
+
+**Pylint Validation**
+
+- The code received a score of 9.38/10, with all significant issues addressed.
 
 ## Deployment
 
