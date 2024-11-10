@@ -78,7 +78,7 @@ def display_welcome_message():
     )
     print()
     print("What you can do with Quiz Cards:")
-    print("1. Add your own Quiz Cards for a custom learning experience.")
+    print("\n1. Add your own Quiz Cards for a custom learning experience.")
     print(
         "2. View and manage all Quiz Cards" "to reinforce what you've learned."
     )
