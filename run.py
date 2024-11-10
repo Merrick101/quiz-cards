@@ -267,13 +267,15 @@ def edit_flashcard():
     flashcard = flashcards[index]
 
     print(
-        f"\nSelected Quiz Card: Term = '{flashcard['term']}', "
-        f"Definition = '{flashcard['definition']}', "
-        f"Category = '{flashcard['category'] or 'Uncategorized'}'"
+        f"\nSelected Quiz Card:\n \nTerm = '{flashcard['term']}', "
+        f"\nDefinition = '{flashcard['definition']}', "
+        f"\nCategory = '{flashcard['category'] or 'Uncategorized'}'"
     )
     # Ask for confirmation before allowing edits
-    if not confirm_action("\nDo you want to edit this Quiz Card? (yes/no): "):
+    message = "\nDo you want to edit this Quiz Card? (yes/no):\n "
+    if not confirm_action(message):
         print("\nEdit cancelled.")
+        print("\nReturning to Previous Menu...")
         return
 
     new_term = input(
@@ -325,12 +327,12 @@ def delete_flashcard():
 
     # Get a valid flashcard index from the user
     index = get_valid_index(
-        "Enter the number of the Quiz Card to delete: ", len(flashcards) - 1
+        "\nEnter the number of the Quiz Card to delete: ", len(flashcards) - 1
     )
     flashcard = flashcards[index]
 
     print(
-        f"\nSelected Quiz Card:\nTerm: {flashcard['term']}\n"
+        f"\nSelected Quiz Card:\n \nTerm: {flashcard['term']}\n"
         f"Definition: {flashcard['definition']}\n"
         f"Category: {flashcard['category'] or 'Uncategorized'}"
     )
