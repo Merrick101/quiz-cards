@@ -1,10 +1,14 @@
 # Quiz Cards
 
-Here's a link to the live version of my project: https://quiz-cards-a792b082b856.herokuapp.com/
+![Quiz Cards Multi View](images/quiz-cards-multi-view.PNG)
+
+Here's a link to the live version of my [project.](https://quiz-cards-a792b082b856.herokuapp.com/)
 
 Quiz Cards is an interactive command-line flashcard application that enables users to create, manage, and quiz themselves on a set of custom flashcards. Designed for anyone looking to improve their knowledge retention, Quiz Cards allows users to organize flashcards by category, test their understanding through a quiz mode, and track progress over time.
 
 ## How it Works
+
+![Quiz Cards Main Menu](images/quiz-cards-main-menu.PNG)
 
 Users can create flashcards by specifying a term, a definition, and an optional category. Flashcards are stored in a JSON file, allowing for easy persistence across sessions. Users can access flashcards by category, edit or delete cards, and quiz themselves with randomly selected flashcards from a chosen category or the entire collection. The progress of each quiz is recorded to enable tracking over time.
 

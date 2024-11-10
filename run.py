@@ -359,7 +359,17 @@ def choose_category():
     prompt = "Enter a category (or press Enter to skip):\n"
     return input(prompt).strip().title()
 
+
 # --- Helper & Validation Functions ---
+
+
+def print_section_title(title):
+    """
+    Prints a formatted section title to indicate the start of a new option.
+    """
+    print("\n" + "*" * 40)
+    print(f"{title.center(40)}")
+    print("*" * 40 + "\n")
 
 
 def confirm_action(message="Are you sure you want to proceed? (yes/no): "):
