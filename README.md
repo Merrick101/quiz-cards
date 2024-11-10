@@ -4,7 +4,7 @@
 
 Here's a link to the live version of my [project.](https://quiz-cards-a792b082b856.herokuapp.com/)
 
-Quiz Cards is an interactive command-line flashcard application that enables users to create, manage, and quiz themselves on a set of custom flashcards. Designed for anyone looking to improve their knowledge retention, Quiz Cards allows users to organize flashcards by category, test their understanding through a quiz mode, and track progress over time.
+Quiz Cards is an interactive command-line flashcard application that enables users to create, manage, and quiz themselves on a set of custom flashcards or Quiz Cards as I refer to them for this app. Designed for anyone looking to improve their knowledge retention, Quiz Cards allows users to organize flashcards by category, test their understanding through a quiz mode, and track progress over time.
 
 ## How it Works
 
@@ -26,7 +26,7 @@ Users can create flashcards by specifying a term, a definition, and an optional 
 
 ![View Quiz Cards](images/view-quiz-cards.PNG)
 
-- Users can view quiz cards in a specific category or view all flashcards at once. This feature allows for efficient review of relevant topics.
+- Users can view quiz cards in a specific category or view all quiz cards at once. This feature allows for efficient review of relevant topics.
 
 **Edit and Delete Quiz Cards**
 
@@ -44,6 +44,12 @@ Users can create flashcards by specifying a term, a definition, and an optional 
 
 - Users can test their knowledge by starting a quiz in a specific category or with all quiz cards. Each quiz session provides feedback on correctness and tracks overall performance.
 
+**Answer Formatting**  
+
+![Quiz User Reminder](images/quiz-user-message.PNG)
+
+- During quiz mode, users are reminded to pay attention to punctuation and capitalization in their answers. This ensures that responses match the saved flashcard answers accurately. 
+
 **Progress Tracking**
 
 ![View Progress](images/view-progress.PNG)
@@ -52,38 +58,103 @@ Users can create flashcards by specifying a term, a definition, and an optional 
 
 ### Future Features
 
-**Flashcard Import/Export**
-- Add functionality to import or export flashcards to share with others or to backup data.
+**Quiz Card Import/Export**
+
+- Add functionality to import or export quiz cards to share with others or to backup data.
 
 **Advanced Quiz Customization**
+
 - Provide options for users to set time limits on questions or select specific difficulty levels.
 
 **Enhanced Progress Analysis**
+
 - Generate detailed performance analytics, such as average accuracy per category and improvement trends over time.
+
+**Ignore Punctuation in Quiz Answers**
+
+- Introduce a clean_answer function to preprocess user answers by removing punctuation and excess whitespace. This enhancement would allow users to answer quiz questions without concern for exact punctuation or spacing, improving usability without impacting scoring accuracy.
+
+## Helper Functions
+
+**print_section_title**
+
+- Used to display a section header in the console, making the output more readable.
+
+**print_error**
+
+- A utility function to standardize error messages across the application.
+
+**confirm_action**
+
+- Prompts the user to confirm actions with a "yes" or "no" response, improving input handling.
+
+**get_valid_integer & get_valid_index**
+
+- The `get_valid_integer` and `get_valid_index` functions ensure that user input falls within valid ranges. These enhancements prevent runtime errors and improve user experience by guiding users back to valid options when they make an error.
 
 ## Data Model
 
-The application uses JSON files to store flashcard and progress data. Flashcards are stored in flashcards.json, with each flashcard containing a term, definition, and an optional category. Progress tracking is managed in progress.json, storing data about each quiz, such as date, category, score, total_questions, and success_rate. JSON was selected for its lightweight and human-readable format, making it suitable for storing structured data like flashcards and progress entries in a persistent format for CLI applications.
+The application uses JSON files to store quiz card and progress data. Quiz cards are stored in flashcards.json, with each quiz card containing a term, definition, and an optional category. Progress tracking is managed in progress.json, storing data about each quiz, such as date, category, score, total_questions, and success_rate. JSON was selected for its lightweight and human-readable format, making it suitable for storing structured data like flashcards and progress entries in a persistent format for CLI applications.
+
+**Flashcards Data (`flashcards.json`)** 
+
+Each flashcard entry contains:
+- `"term"`: The term or question for the flashcard.
+- `"definition"`: The corresponding answer or explanation.
+- `"category"`: An optional category for organizing flashcards.
+
+**Progress Data (`progress.json`)**
+
+Each quiz entry contains:
+- `"date"`: Timestamp of when the quiz was completed.
+- `"category"`: The quiz category.
+- `"score"`: Number of correct answers.
+- `"total_questions"`: Total number of questions in the quiz.
+- `"success_rate"`: Percentage score for the quiz session.
 
 ## Testing
 
-### Bugs
+### Test Cases
 
-**Solved Bugs**
+**Test Case 1**
 
-- Enhanced Navigation Options
-Implemented stricter input handling for confirmation prompts and category selection, reducing the impact of invalid inputs.
+- Adding a flashcard with term, definition, and category fields.
 
-- Empty Input Handling: Pressing "Enter" without entering a response in quiz mode originally marked the answer as incorrect.
+**Test Case 2**
 
-- Quiz Mode Input Validation
-Resolved issue where pressing "Enter" without an answer caused the quiz to move to the next question by adding validation for non-empty input.
+- Starting a quiz and answering questions correctly, incorrectly, and with special characters.
 
-- Unexpected Characters in Input: Non-integer inputs in selection prompts could cause errors in earlier versions.
+**Test Case 3**
 
-**Remaining Bugs**
+- Viewing progress to ensure the progress.json file updates accurately.
 
-- None Identified: All known bugs have been resolved.
+**Test Case 4**
+
+- Error handling in cases where inputs exceed limits or contain invalid characters.
+
+### Solved Bugs
+
+**Enhanced Navigation Options**
+
+- Implemented stricter input handling for confirmation prompts and category selection, reducing the impact of invalid inputs.
+
+**Empty Input Handling**
+
+- Pressing "Enter" without entering a response in quiz mode originally marked the answer as incorrect.
+
+**Quiz Mode Input Validation**
+
+- Resolved issue where pressing "Enter" without an answer caused the quiz to move to the next question by adding validation for non-empty input.
+
+**Unexpected Characters in Input**
+
+- Non-integer inputs in selection prompts could cause errors in earlier versions.
+
+### Remaining Bugs
+
+**None Identified**
+
+- All known bugs have been resolved.
 
 ### Validator Testing
 
@@ -104,10 +175,15 @@ This project was deployed on Heroku via the Code Institute's mock terminal.
 ### Steps for Deployment
 
 - Create a new app on Heroku.
+
 - Add the Python and NodeJS buildpacks in that order.
+
 - Add a config var called PORT with the value 8000.
+
 - In the Deploy tab of the Heroku dashboard, under Deployment method, select GitHub and search for the GitHub repository to connect.
+
 - In the Overview tab of the Heroku dashboard, confirm that web dyno is toggled on in the Dyno Formations section.
+
 - In the Manual Deploy section, select the main branch and click Deploy Branch.
 
 ## Credits
@@ -116,9 +192,17 @@ This project was deployed on Heroku via the Code Institute's mock terminal.
 
 - Code structure and functions were inspired by Python command-line application best practices.
 
+**Libraries Used**
+
+- **json**: For data serialization.
+
+- **os**: To manage file paths and verify file existence.
+
+- **random**: For random selection of quiz cards during quizzes.
+
 **Content**
 
-- Flashcard content was curated for demonstration purposes from various educational sources.
+- Quiz card content was curated for demonstration purposes from various educational sources.
 
 **Acknowledgments**
 
