@@ -90,7 +90,7 @@ def display_welcome_message():
     )
     print()
     print(
-        "Let’s get started and make your"
+        "Let’s get started and make your "
         "learning journey interactive and fun!"
     )
 
