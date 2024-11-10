@@ -16,19 +16,38 @@ Users can create flashcards by specifying a term, a definition, and an optional 
 
 ### Existing Features
 
-**Add Flashcards**
+**Add Quiz Cards**
+
+![Add a New Quiz Card](images/add-quiz-card.PNG)
+
 - Users can create new flashcards by providing a term, definition, and an optional category. Flashcards are automatically saved to a JSON file for persistence.
 
-**View Flashcards by Category**
-- Users can view flashcards in a specific category or view all flashcards at once. This feature allows for efficient review of relevant topics.
+**View Quiz Cards by Category**
 
-**Edit and Delete Flashcards**
-- Users have the ability to modify or delete flashcards as needed, helping to keep their study set accurate and current.
+![View Quiz Cards](images/view-quiz-cards.PNG)
+
+- Users can view quiz cards in a specific category or view all flashcards at once. This feature allows for efficient review of relevant topics.
+
+**Edit and Delete Quiz Cards**
+
+![Edit Quiz Cards](images/edit-quiz-card.PNG)
+
+![Delete Quiz Cards](images/delete-quiz-card.PNG)
+
+- Users have the ability to modify or delete quiz cards as needed, helping to keep their study set accurate and current.
 
 **Quiz Mode**
-- Users can test their knowledge by starting a quiz in a specific category or with all flashcards. Each quiz session provides feedback on correctness and tracks overall performance.
+
+![Begin Quiz](images/quiz-mode.PNG)
+
+![After Quiz](images/quiz-mode-post.PNG)
+
+- Users can test their knowledge by starting a quiz in a specific category or with all quiz cards. Each quiz session provides feedback on correctness and tracks overall performance.
 
 **Progress Tracking**
+
+![View Progress](images/view-progress.PNG)
+
 - Each quiz session is saved in a JSON file, recording the date, category, score, and success rate. Users can view a summary of their performance history.
 
 ### Future Features
@@ -70,7 +89,7 @@ Resolved issue where pressing "Enter" without an answer caused the quiz to move 
 
 **PEP8 Validation**
 
-- I passed my code through the Code Institute PEP8 linter and refactored my code after the initial results showed issues regarding whitespace and lines that exceeded 79 characters. I passed the code through the linter again to confirm that no issues remained.
+- I passed my code through the Code Institute PEP8 linter and refactored my code after the initial results showed issues such as whitespace and lines that exceeded 79 characters. I passed the code through the linter again to confirm that no issues remained.
 
 ![PEP8 Linter Results](images/ci-python-linter-results.PNG)
 
