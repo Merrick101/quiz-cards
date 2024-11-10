@@ -106,13 +106,13 @@ def add_flashcard():
     Assigns 'Uncategorized' if no category is given. Auto-saves flashcards upon
     successful addition.
     """
-    print("\nAdd a New Quiz Card")
+    print_section_title("Add a New Quiz Card")
     print(
-        "\nYou’ll be asked to enter a term/question followed by its "
+        "You’ll be asked to enter a term/question followed by its "
         "definition/answer, and an optional category."
     )
     print(
-        "\nExample: \nTerm = Python"
+        "\nExample:\n \nTerm = Python"
         "\nDefinition = A high-level programming language"
         "\nCategory = Programming"
     )
@@ -156,8 +156,9 @@ def view_flashcards():
     View flashcards by category or view all flashcards.
     Provides an option to view other flashcards or return to the main menu.
     """
+    print_section_title("View Quiz Cards")
     if not flashcards:
-        print("\nNo Quiz Cards available.")
+        print("No Quiz Cards available.")
         print("\nReturning to Previous Menu...")
         return  # Exit if there are no flashcards to view
 
@@ -169,7 +170,7 @@ def view_flashcards():
                 for fc in flashcards
             )
         )
-        print("\nAvailable Categories:")
+        print("Available Categories:\n")
         for idx, category in enumerate(unique_categories, start=1):
             print(f"{idx}. {category}")
         print(f"{len(unique_categories) + 1}. View All Quiz Cards")
@@ -250,8 +251,9 @@ def edit_flashcard():
     confirmation before making changes. Allows the user to update term,
     definition, or category. Changes are saved upon confirmation.
     """
+    print_section_title("Edit a Quiz Card")
     if not flashcards:
-        print("\nNo Quiz Cards available to edit.")
+        print("No Quiz Cards available to edit.")
         print("\nReturning to Previous Menu...")
         return
 
@@ -292,7 +294,7 @@ def edit_flashcard():
         f"Definition: {new_definition}\n"
         f"Category: {new_category or 'Uncategorized'}"
     )
-    if confirm_action("\nDo you want to save these changes? (yes/no): "):
+    if confirm_action("\nDo you want to save these changes? (yes/no):\n "):
         flashcard.update(
             {
                 "term": new_term,
@@ -312,8 +314,9 @@ def delete_flashcard():
     Displays all flashcards using display_flashcards for selection,
     and prompts the user to select one for deletion by index.
     """
+    print_section_title("Delete a Quiz Card")
     if not flashcards:
-        print("\nNo Quiz Cards to delete.")
+        print("No Quiz Cards to delete.")
         print("\nReturning to Previous Menu...")
         return
 
@@ -372,7 +375,7 @@ def print_section_title(title):
     print("*" * 40 + "\n")
 
 
-def confirm_action(message="Are you sure you want to proceed? (yes/no): "):
+def confirm_action(message="Are you sure you want to proceed? (yes/no): \n"):
     """
     Displays a prompt for the user to confirm an action with 'yes' or 'no'.
     Repeats until valid input is received. Returns True for 'yes' and False
@@ -437,7 +440,7 @@ def display_flashcards():
     Used as a helper function in other parts of the program.
     """
     if not flashcards:
-        print("\nNo Quiz Cards available.")
+        print("No Quiz Cards available.")
         return
 
     unique_categories = sorted(
@@ -446,7 +449,7 @@ def display_flashcards():
             for fc in flashcards
         )
     )
-    print("\nAvailable Categories:")
+    print("Available Categories:\n")
     for idx, category in enumerate(unique_categories, start=1):
         print(f"{idx}. {category}")
     print(f"{len(unique_categories) + 1}. View All Quiz Cards")
@@ -499,15 +502,15 @@ def start_quiz():
     After the quiz, offers options to retry the same quiz,
     start a new quiz, or return to the main menu.
     """
+    print_section_title("Quiz Mode")
     if not flashcards:
         print(
-            "\nNo Quiz Cards available for quiz. Please add Quiz Cards first."
+            "No Quiz Cards available for quiz. Please add Quiz Cards first."
         )
         print("\nReturning to Main Menu...")
         return
 
     while True:  # Main quiz loop for selecting categories and starting quizzes
-        print("\nQuiz Mode")
 
         # Display available categories
         unique_categories = sorted(
@@ -713,15 +716,16 @@ def view_progress():
     Allows the user to clear all progress entries
     with confirmation.
     """
+    print_section_title("View Progress")
     try:
         with open(progress_file, "r") as file:
             progress_data = json.load(file)
         if not progress_data:
-            print("\nNo quiz progress available.")
+            print("No quiz progress available.")
             print("\nReturning to Main Menu...")
             return
 
-        print("\nQuiz Progress History:")
+        print("Quiz Progress History:")
         total_score = 0
         total_questions = 0
         highest_score = 0
@@ -834,7 +838,7 @@ def flashcard_management_menu():
     """
     while True:
         print("\nQuiz Card Management\n")
-        print("1. Add a Quiz Card")
+        print("1. Add a New Quiz Card")
         print("2. View Quiz Cards")
         print("3. Edit a Quiz Card")
         print("4. Delete a Quiz Card")
