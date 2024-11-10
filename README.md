@@ -63,7 +63,7 @@ Users can create flashcards by specifying a term, a definition, and an optional 
 
 ## Data Model
 
-The application uses JSON files to store flashcard and progress data. Flashcards are stored in flashcards.json, with each flashcard containing a term, definition, and an optional category. Progress tracking is managed in progress.json, storing data about each quiz, such as date, category, score, total_questions, and success_rate.
+The application uses JSON files to store flashcard and progress data. Flashcards are stored in flashcards.json, with each flashcard containing a term, definition, and an optional category. Progress tracking is managed in progress.json, storing data about each quiz, such as date, category, score, total_questions, and success_rate. JSON was selected for its lightweight and human-readable format, making it suitable for storing structured data like flashcards and progress entries in a persistent format for CLI applications.
 
 ## Testing
 
@@ -95,11 +95,20 @@ Resolved issue where pressing "Enter" without an answer caused the quiz to move 
 
 **Pylint Validation**
 
-- The code received a score of 9.38/10, with all significant issues addressed.
+- Tested via the GitPod terminal. The code received a score of 9.38/10, with all significant issues addressed.
 
 ## Deployment
 
+This project was deployed on Heroku via the Code Institute's mock terminal.
+
 ### Steps for Deployment
+
+- Create a new app on Heroku.
+- Add the Python and NodeJS buildpacks in that order.
+- Add a config var called PORT with the value 8000.
+- In the Deploy tab of the Heroku dashboard, under Deployment method, select GitHub and search for the GitHub repository to connect.
+- In the Overview tab of the Heroku dashboard, confirm that web dyno is toggled on in the Dyno Formations section.
+- In the Manual Deploy section, select the main branch and click Deploy Branch.
 
 ## Credits
 

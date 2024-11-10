@@ -512,6 +512,12 @@ def start_quiz():
         print("\nReturning to Main Menu...")
         return
 
+    # Add guidance for answer formatting
+    print("\nNote: Answers must include any punctuation and ")
+    print("exact capitalization as shown on the Quiz Card.")
+    print("\nFor example, if a term has a period at the end, ")
+    print("include it in your answer.")
+
     while True:  # Main quiz loop for selecting categories and starting quizzes
 
         # Display available categories
