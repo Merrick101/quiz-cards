@@ -148,7 +148,7 @@ def add_flashcard():
             print("\nQuiz Card not added.")
     else:
         print_error("\nBoth term and definition are required.")
-        print("Returning to Previous Menu...")
+        print("\nReturning to Previous Menu...")
 
 
 def view_flashcards():
@@ -158,7 +158,7 @@ def view_flashcards():
     """
     if not flashcards:
         print("\nNo Quiz Cards available.")
-        print("Returning to Previous Menu...")
+        print("\nReturning to Previous Menu...")
         return  # Exit if there are no flashcards to view
 
     while True:
@@ -185,7 +185,7 @@ def view_flashcards():
             )
             if selection == len(unique_categories) + 2:
                 # User chose to return to the previous menu
-                print("Returning to Previous Menu...")
+                print("\nReturning to Previous Menu...")
                 return
             elif 1 <= selection <= len(unique_categories):
                 # Selected a specific category
@@ -240,7 +240,7 @@ def view_flashcards():
         except ValueError:
             print_error("Please enter a valid number.")
 
-    print("Returning to Previous Menu...")
+    print("\nReturning to Previous Menu...")
 
 
 def edit_flashcard():
@@ -252,7 +252,7 @@ def edit_flashcard():
     """
     if not flashcards:
         print("\nNo Quiz Cards available to edit.")
-        print("Returning to Previous Menu...")
+        print("\nReturning to Previous Menu...")
         return
 
     display_flashcards()  # Display flashcards without navigation options
@@ -314,7 +314,7 @@ def delete_flashcard():
     """
     if not flashcards:
         print("\nNo Quiz Cards to delete.")
-        print("Returning to Previous Menu...")
+        print("\nReturning to Previous Menu...")
         return
 
     # Display current flashcards without prompts
@@ -493,7 +493,7 @@ def start_quiz():
         print(
             "\nNo Quiz Cards available for quiz. Please add Quiz Cards first."
         )
-        print("Returning to Main Menu...")
+        print("\nReturning to Main Menu...")
         return
 
     while True:  # Main quiz loop for selecting categories and starting quizzes
@@ -595,7 +595,7 @@ def start_quiz():
                 break
             elif next_action == 3:
                 # Exit to the main menu
-                print("Returning to Main Menu...")
+                print("\nReturning to Main Menu...")
                 return
 
 
@@ -708,7 +708,7 @@ def view_progress():
             progress_data = json.load(file)
         if not progress_data:
             print("\nNo quiz progress available.")
-            print("Returning to Main Menu...")
+            print("\nReturning to Main Menu...")
             return
 
         print("\nQuiz Progress History:")
@@ -778,7 +778,7 @@ def view_progress():
                     print("\nClear progress cancelled.")
                 break
             elif clear_progress == "no":
-                print("Returning to Main Menu...")
+                print("\nReturning to Main Menu...")
                 break
             else:
                 print("\nInvalid input. Please enter 'yes' or 'no'.")
@@ -841,7 +841,7 @@ def flashcard_management_menu():
         elif choice == "4":
             delete_flashcard()
         elif choice == "5":
-            print("Returning to Main Menu...")
+            print("\nReturning to Main Menu...")
             break
         else:
             print_error("\nInvalid option. Please try again.")
